@@ -3,8 +3,8 @@ from datetime import datetime, timedelta
 
 app = Flask(__name__)
 
-@app.route('/', methods=['GET', 'POST'])
-def index():
+@app.route('/date_to_epoch', methods=['GET', 'POST'])
+def date_to_epoch():
     epoch_time = None
     form_data = {
         "year": datetime.utcnow().year,
@@ -18,7 +18,41 @@ def index():
     }
 
     error_message = None
+
+    if request.method == "POST":
+        try:
+            form_data["year"] = year = int(request.form.get("year", form_data["year"]))
+            form_data["month"] = month = int(request.form.get("month", form_data["month"]))
+            form_data["day"] = day = int(request.form.get("day", form_data["day"]))
+            form_data["hour"] = hour = int(request.form.get("hour", form_data["hour"]))
+            form_data["minute"] = minute = int(request.form.get("minute", form_data["minute"]))
+            form_data["second"] = second = int(request.form.get("second", form_data["second"]))
+            form_data["hour_format"] = hour_format = request.form.get("hour_format", "12")
+            form_data["am_pm"] = am_pm = request.form.get("am_pm", "AM")
+
+            if hour_format == "12":
+                if am_pm == "PM" and hour != 12:
+                    hour += 12
+                elif am_pm == "AM" and hour == 12:
+                    hour = 0
+
+            date_time = datetime(year, month, day, hour, minute, second)
+            epoch_time = int(date_time.timestamp())
+        except Exception as e:
+            error_message = str(e)
+
+    return render_template(
+        "index.html",
+        epoch_time=epoch_time,
+        form_data=form_data,
+        error_message=error_message,
+    )
+
+@app.route('/epoch_calculator', methods=['GET', 'POST'])
+def epoch_calculator():
+    error_message = None
     time_to_add = 0
+
     try:
         weeks = request.form.get("weeks", type=int, default=0)
         days = request.form.get("days", type=int, default=0)
@@ -55,35 +89,11 @@ def index():
     except OverflowError as oe:
         error_message = str(oe)
 
-    if request.method == "POST" and error_message is None:
-        try:
-            form_data["year"] = year = int(request.form.get("year", form_data["year"]))
-            form_data["month"] = month = int(request.form.get("month", form_data["month"]))
-            form_data["day"] = day = int(request.form.get("day", form_data["day"]))
-            form_data["hour"] = hour = int(request.form.get("hour", form_data["hour"]))
-            form_data["minute"] = minute = int(request.form.get("minute", form_data["minute"]))
-            form_data["second"] = second = int(request.form.get("second", form_data["second"]))
-            form_data["hour_format"] = hour_format = request.form.get("hour_format", "12")
-            form_data["am_pm"] = am_pm = request.form.get("am_pm", "AM")
-
-            if hour_format == "12":
-                if am_pm == "PM" and hour != 12:
-                    hour += 12
-                elif am_pm == "AM" and hour == 12:
-                    hour = 0
-
-            date_time = datetime(year, month, day, hour, minute, second)
-            epoch_time = int(date_time.timestamp())
-        except Exception as e:
-            error_message = str(e)
-
     return render_template(
         "index.html",
         current_epoch_time=int(current_epoch_time.timestamp()),
         time_to_add=int(time_to_add),
         time_to_add_explanation=time_to_add_explanation,
-        epoch_time=epoch_time,
-        form_data=form_data,
         new_epoch_time=int(new_epoch_time.timestamp() if new_epoch_time is not None else 0),
         error_message=error_message,
     )
