@@ -149,7 +149,6 @@ def index():
         time_to_add=int(time_to_add),
         time_to_add_explanation=time_to_add_explanation,
         new_epoch_time=int(new_epoch_time.timestamp() if new_epoch_time is not None else 0),
-        error_message=error_message,
         calendar_epoch_time=calendar_epoch_time,
         error_message=error_message,
     )
