@@ -13,7 +13,7 @@
          <div class="row">
             <div class="converter-wrapper col-md-4">
                <h2 class="text-center">Date to Epoch Converter</h2>
-               <form action="{{ url_for('date_to_epoch') }}" name="dateToEpoch" id="dateToEpoch" method="POST" data-format="mdy" class="date-selector">
+               <form action="{{ url_for('index') }}" name="dateToEpoch" id="dateToEpoch" method="POST" data-format="mdy" class="date-selector">
                   <table class="tool hf-table date-time-input">
                      <tbody>
                         <tr>
@@ -90,7 +90,7 @@
             </div>
             <div class="converter-wrapper col-md-4">
                <h2 class="text-center">Epoch Calculator</h2>
-               <form action="{{ url_for('epoch_calculator') }}" method="POST">
+               <form action="{{ url_for('index') }}" method="POST">
                   <div id="basicInput">
                      <label for="days">Days:</label>
                      <input type="number" id="days" name="days">
@@ -126,7 +126,7 @@
             </div>
             <div class="converter-wrapper col-md-4">
                <h2 class="text-center">Calendar Date to Epoch Converter</h2>
-               <form action="{{ url_for('date_to_epoch') }}" name="calendarDateToEpoch" id="calendarDateToEpoch" method="POST">
+               <form action="{{ url_for('index') }}" name="calendarDateToEpoch" id="calendarDateToEpoch" method="POST">
                   <label for="calendar-date">Select Date:</label>
                   <input type="date" id="calendar-date" name="calendar-date" class="form-control-inline">
                   <button type="submit" class="btn btn-primary">Convert to Epoch</button>
