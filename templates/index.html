@@ -118,9 +118,17 @@
                {% endif %}
             </div>
             <div class="converter-wrapper col-md-4">
-               <h2 class="text-center">Another Converter</h2>
-               <!-- Another converter form goes here -->
-            </div>
+               <h2 class="text-center">Calendar Date to Epoch Converter</h2>
+               <form action="{{ url_for('index') }}" name="calendarDateToEpoch" id="calendarDateToEpoch" method="POST">
+                   <label for="calendar-date">Select Date:</label>
+                   <input type="date" id="calendar-date" name="calendar-date" class="form-control-inline">
+                   <button type="button" onclick="convertToEpoch()">Convert to Epoch</button>
+               </form>
+               <div id="epochResult" class="result-box" style="display:none;">
+                   <h3>Results:</h3>
+                   <p id="epoch-time"></p>
+               </div>
+           </div>           
          </div>
       </div>
       <script>
@@ -165,6 +173,18 @@
                  }
                  dropdown.add(option);
              }
+         }
+
+         function convertToEpoch() {
+            var dateInput = document.getElementById('calendar-date').value;  // YYYY-MM-DD
+            var dateParts = dateInput.split("-");
+
+            // JavaScript counts months from 0, and hours from midnight.
+            var dateObject = new Date(dateParts[0], dateParts[1] - 1, dateParts[2], 12, 0, 0);
+            var epochTime = dateObject.getTime() / 1000;
+
+            document.getElementById('epoch-time').textContent = "Epoch time: " + epochTime;
+            document.getElementById('epochResult').style.display = "block";
          }
          
          function toggleHourFormat() {

@@ -1,5 +1,0 @@
-cd C:\Users\andyd\OneDrive\Desktop\Coding\epochCalculator\flipper-stock-staging
-
-venv\Scripts\activate
-
-python app.py

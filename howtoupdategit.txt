@@ -1,0 +1,47 @@
+# --------------------------
+# Updating your testing branch
+# --------------------------
+
+# First, go to directory
+cd C:\Users\andyd\OneDrive\Desktop\Coding\epochCalculator\epochCalculator
+
+#make sure you are on your testing branch, which we've been calling `develop`:
+git checkout develop
+
+# Update your local testing branch with the latest changes:
+git pull origin develop
+
+# Make your changes to the code. Once you're done, stage and commit those changes:
+git add .
+git commit -m "Describe your changes here"
+
+# Push your updates to the remote testing branch:
+git push origin develop
+
+
+# --------------------------
+# Backing up your main branch
+# --------------------------
+
+# Switch to the `main` branch:
+git checkout main
+
+# Create a backup of the `main` branch:
+git branch backup_main
+
+# Push the `backup_main` branch to GitHub:
+git push origin backup_main
+
+
+# --------------------------
+# Merging testing into main
+# --------------------------
+
+# Make sure you're on the `main` branch:
+git checkout main
+
+# Merge the testing branch into `main`:
+git merge develop
+
+# Push the updated `main` branch to GitHub:
+git push origin main
