@@ -131,16 +131,17 @@
                   <input type="date" id="calendar-date" name="calendar-date" class="form-control-inline">
                   <button type="submit" class="btn btn-primary">Convert to Epoch</button>
                </form>
-               {% if epoch_time is not none %}
+               {% if calendar_epoch_time is not none %}
                <div class="result-box">
-                  <h3>Results:</h3>
-                  <p>Date in Epoch time: {{ epoch_time }}</p>
+                   <h3>Results:</h3>
+                   <p>Date in Epoch time: {{ calendar_epoch_time }}</p>
                </div>
                {% else %}
                <div class="error-box">
-                  <p>{{ error_message }}</p>
+                   <p>{{ error_message }}</p>
                </div>
                {% endif %}
+               
            </div>
          </div>
       </div>

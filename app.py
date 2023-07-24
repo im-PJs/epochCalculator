@@ -92,6 +92,30 @@ def process_epoch_calculator(request):
 
     return current_epoch_time, time_to_add, time_to_add_explanation, new_epoch_time, error_message
 
+def process_calendar_date_to_epoch(request):
+    """Processes the calendar date to epoch conversion.
+
+    Args:
+        request: The Flask request object.
+
+    Returns:
+        epoch_time: The calculated epoch time.
+        error_message: Any error messages that occurred during processing.
+    """
+    epoch_time = None
+    error_message = None
+    try:
+        date_input = request.form.get("calendar-date", None)
+        if date_input:
+            # Input format is 'YYYY-MM-DD'
+            year, month, day = map(int, date_input.split('-'))
+            date_time = datetime(year, month, day)  # Time is assumed to be 00:00:00
+            epoch_time = int(date_time.timestamp())
+    except Exception as e:
+        error_message = str(e)
+
+    return epoch_time, error_message
+
 @app.route('/', methods=['GET', 'POST'])
 def index():
     form_data = {
@@ -105,11 +129,17 @@ def index():
         "am_pm": "AM",
     }
 
-    epoch_time, error_message_date_to_epoch = process_date_to_epoch(request, form_data)
-    current_epoch_time, time_to_add, time_to_add_explanation, new_epoch_time, error_message_epoch_calculator = process_epoch_calculator(request)
+    if request.method == 'POST':
+        epoch_time, error_message_date_to_epoch = process_date_to_epoch(request, form_data)
+        current_epoch_time, time_to_add, time_to_add_explanation, new_epoch_time, error_message_epoch_calculator = process_epoch_calculator(request)
+        calendar_epoch_time, error_message_calendar_date_to_epoch = process_calendar_date_to_epoch(request)
+    else:
+        epoch_time = error_message_date_to_epoch = current_epoch_time = time_to_add = time_to_add_explanation = new_epoch_time = error_message_epoch_calculator = None
+        calendar_epoch_time = error_message_calendar_date_to_epoch = None
+
 
     # Combine the error messages if there are any
-    error_message = error_message_date_to_epoch or error_message_epoch_calculator
+    error_message = error_message_date_to_epoch or error_message_epoch_calculator or error_message_calendar_date_to_epoch
 
     return render_template(
         "index.html",
@@ -119,6 +149,8 @@ def index():
         time_to_add=int(time_to_add),
         time_to_add_explanation=time_to_add_explanation,
         new_epoch_time=int(new_epoch_time.timestamp() if new_epoch_time is not None else 0),
+        error_message=error_message,
+        calendar_epoch_time=calendar_epoch_time,
         error_message=error_message,
     )
 
