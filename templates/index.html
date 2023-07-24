@@ -77,7 +77,7 @@
                      </tbody>
                   </table>
                </form>
-               {% if epoch_time is not none %}
+               {% if epoch_time is not none or time_to_add is none or time_to_add = 0%}
                <div class="result-box">
                   <h3>Results:</h3>
                   <p>Date in Epoch time: {{ epoch_time }}</p>
