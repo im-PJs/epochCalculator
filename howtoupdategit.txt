@@ -13,7 +13,9 @@ git pull origin develop
 
 # Make your changes to the code. Once you're done, stage and commit those changes:
 git add .
-git commit -m "Describe your changes here"
+
+
+git commit -m "CHANGE"
 
 # Push your updates to the remote testing branch:
 git push origin develop
