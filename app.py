@@ -90,6 +90,9 @@ def process_epoch_calculator(request):
     except OverflowError as oe:
         error_message = str(oe)
 
+    if error_message is not None:
+        return None, 0, "", None, "An error occurred while processing the request"
+
     return current_epoch_time, time_to_add, time_to_add_explanation, new_epoch_time, error_message
 
 def process_calendar_date_to_epoch(request):
@@ -141,6 +144,9 @@ def index():
     # Combine the error messages if there are any
     error_message = error_message_date_to_epoch or error_message_epoch_calculator or error_message_calendar_date_to_epoch
 
+    if time_to_add is None:
+        time_to_add = 0
+    
     return render_template(
         "index.html",
         epoch_time=epoch_time,
