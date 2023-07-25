@@ -151,7 +151,7 @@ def index():
         "index.html",
         epoch_time=epoch_time,
         form_data=form_data,
-        current_epoch_time=int(current_epoch_time.timestamp() if current_epoch_time is not None else 0),
+        current_epoch_time=current_epoch_time.timestamp() if current_epoch_time is not None else None
         time_to_add=int(time_to_add),
         time_to_add_explanation=time_to_add_explanation,
         new_epoch_time=int(new_epoch_time.timestamp() if new_epoch_time is not None else 0),

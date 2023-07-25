@@ -235,9 +235,11 @@
          }
          
          function updateEpochTime() {
-             var now = new Date();
-             var epochTime = Math.floor(now.getTime() / 1000);
-             document.getElementById('current_epoch').textContent = "Current Epoch time: " + epochTime;
+            var now = new Date();
+            var epochTime = Math.floor(now.getTime() / 1000);
+            if (document.getElementById('current_epoch').textContent !== null) {
+               document.getElementById('current_epoch').textContent = "Current Epoch time: " + epochTime;
+            }
          }
          
          updateEpochTime(); // Call the function immediately to set initial value
