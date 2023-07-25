@@ -7,7 +7,7 @@
       <link rel="stylesheet" href="{{ url_for('static', filename='CSS/main.css') }}">
    </head>
    <body>
-      <div id="current_epoch" style="position: fixed; top: 10px; right: 10px; font-size: 20px; color: black; background: white; padding: 10px; border-radius: 5px;">{{ current_epoch_time }}</div>
+      <div id="current_epoch" style="position: fixed; top: 10px; right: 10px; font-size: 20px; color: black; background: white; padding: 10px; border-radius: 5px;">Current Epoch Time: {{ current_epoch_time }}</div>
       <h1 class="my-4 text-center">Universal Converter</h1>
       <div class="container">
          <div class="row">
@@ -82,7 +82,7 @@
                   <h3>Results:</h3>
                   <p>Date in Epoch time: {{ epoch_time }}</p>
                </div>
-               {% else %}
+               {% elif error_message %}
                <div class="error-box">
                   <p>{{ error_message }}</p>
                </div>
@@ -118,7 +118,7 @@
                   <p>Time to add: {{ time_to_add }} seconds</p>
                   <p>New Epoch time: {{ new_epoch_time }}</p>
                </div>
-               {% else %}
+               {% elif error_message %}
                <div class="error-box">
                   <p>{{ error_message }}</p>
                </div>
@@ -136,114 +136,13 @@
                    <h3>Results:</h3>
                    <p>Date in Epoch time: {{ calendar_epoch_time }}</p>
                </div>
-               {% else %}
+               {% elif error_message %}
                <div class="error-box">
                    <p>{{ error_message }}</p>
                </div>
                {% endif %}
-               
            </div>
          </div>
       </div>
-      <script>
-         document.addEventListener('DOMContentLoaded', function() {
-             let today = getToday();
-             fillDropDown('month', 1, 12, today.month);
-             fillDropDown('day', 1, 31, today.day);
-             fillDropDown('year', 1970, new Date().getFullYear(), today.year);
-             toggleHourFormat(today.hours, today.minutes);
-             fillDropDown('minute', 0, 59, today.minutes);
-             fillDropDown('second', 0, 59, today.seconds);
-             setInterval(updateEpochTime, 1000);
-         
-             let hourFormatRadios = document.getElementsByName('hour_format');
-             for(let i = 0; i < hourFormatRadios.length; i++) {
-                 hourFormatRadios[i].addEventListener('change', function() {
-                     toggleHourFormat();
-                 });
-             }
-         });
-         
-         function getToday() {
-             let date = new Date();
-             return {
-                 day: date.getDate(),
-                 month: date.getMonth() + 1, // JavaScript months are 0-11
-                 year: date.getFullYear(),
-                 hours: date.getHours(),
-                 minutes: date.getMinutes(),
-                 seconds: date.getSeconds()
-             };
-         }
-         
-         function fillDropDown(id, start, end, selected) {
-             let dropdown = document.getElementById(id);
-             for(let i = start; i <= end; i++) {
-                 let option = document.createElement("option");
-                 option.text = i;
-                 option.value = i;
-                 if (i === selected) {
-                     option.selected = true;
-                 }
-                 dropdown.add(option);
-             }
-         }
-
-         function convertToEpoch() {
-            var dateInput = document.getElementById('calendar-date').value;  // YYYY-MM-DD
-            var dateParts = dateInput.split("-");
-
-            // JavaScript counts months from 0, and hours from midnight.
-            var dateObject = new Date(dateParts[0], dateParts[1] - 1, dateParts[2], 12, 0, 0);
-            var epochTime = dateObject.getTime() / 1000;
-
-            document.getElementById('epoch-time').textContent = "Epoch time: " + epochTime;
-            document.getElementById('epochResult').style.display = "block";
-         }
-
-         function toggleHourFormat() {
-            let hourFormat = document.querySelector('input[name="hour_format"]:checked').value;
-            let hourDropdown = document.getElementById('hour');
-            let amPmSelect = document.getElementById('am_pm');
-            let today = getToday();
-            hourDropdown.options.length = 0;  // Clear the options
-         
-            if(hourFormat === '12') {
-               amPmSelect.style.display = "inline-block";
-               fillDropDown('hour', 1, 12, today.hours > 12 ? today.hours % 12 : (today.hours == 0 ? 12 : today.hours));
-         
-               // Set AM/PM based on the current hour
-               if (today.hours >= 12) {
-                     amPmSelect.value = 'PM';
-               } else {
-                     amPmSelect.value = 'AM';
-               }
-            }
-            else {
-               amPmSelect.style.display = "none";
-               fillDropDown('hour', 0, 23, today.hours);
-            }
-         }
-         
-         function toggleInput() {
-             var x = document.getElementById("expandedInput");
-             if (x.style.display === "none") {
-                 x.style.display = "block";
-             } else {
-                 x.style.display = "none";
-             }
-         }
-         
-         function updateEpochTime() {
-            var now = new Date();
-            var epochTime = Math.floor(now.getTime() / 1000);
-            if (document.getElementById('current_epoch').textContent !== null) {
-               document.getElementById('current_epoch').textContent = "Current Epoch time: " + epochTime;
-            }
-         }
-         
-         updateEpochTime(); // Call the function immediately to set initial value
-         setInterval(updateEpochTime, 1000);
-      </script> 
    </body>
 </html>

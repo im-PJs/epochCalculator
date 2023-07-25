@@ -4,16 +4,7 @@ from datetime import datetime, timedelta
 app = Flask(__name__)
 
 def process_date_to_epoch(request, form_data):
-    """Processes the date to epoch conversion.
-
-    Args:
-        request: The Flask request object.
-        form_data: A dictionary to store form data.
-
-    Returns:
-        epoch_time: The calculated epoch time.
-        error_message: Any error messages that occurred during processing.
-    """
+    """Processes the date to epoch conversion."""
     epoch_time = None
     error_message = None
     try:
@@ -40,18 +31,7 @@ def process_date_to_epoch(request, form_data):
     return epoch_time, error_message
 
 def process_epoch_calculator(request):
-    """Processes the epoch calculator.
-
-    Args:
-        request: The Flask request object.
-
-    Returns:
-        current_epoch_time: The current epoch time.
-        time_to_add: The total seconds to be added to the current epoch time.
-        time_to_add_explanation: The explanation of the total seconds.
-        new_epoch_time: The new epoch time after addition.
-        error_message: Any error messages that occurred during processing.
-    """
+    """Processes the epoch calculator."""
     error_message = None
     time_to_add = 0
     try:
@@ -96,15 +76,7 @@ def process_epoch_calculator(request):
     return current_epoch_time, time_to_add, time_to_add_explanation, new_epoch_time, error_message
 
 def process_calendar_date_to_epoch(request):
-    """Processes the calendar date to epoch conversion.
-
-    Args:
-        request: The Flask request object.
-
-    Returns:
-        epoch_time: The calculated epoch time.
-        error_message: Any error messages that occurred during processing.
-    """
+    """Processes the calendar date to epoch conversion."""
     epoch_time = None
     error_message = None
     try:
@@ -140,24 +112,23 @@ def index():
         epoch_time = error_message_date_to_epoch = current_epoch_time = time_to_add = time_to_add_explanation = new_epoch_time = error_message_epoch_calculator = None
         calendar_epoch_time = error_message_calendar_date_to_epoch = None
 
-
     # Combine the error messages if there are any
     error_message = error_message_date_to_epoch or error_message_epoch_calculator or error_message_calendar_date_to_epoch
 
     if time_to_add is None:
         time_to_add = 0
-    
+
     return render_template(
         "index.html",
         epoch_time=epoch_time,
         form_data=form_data,
-        current_epoch_time=current_epoch_time.timestamp() if current_epoch_time is not None else None,
+        current_epoch_time=int(current_epoch_time.timestamp()) if current_epoch_time is not None else None,
         time_to_add=int(time_to_add),
         time_to_add_explanation=time_to_add_explanation,
-        new_epoch_time=int(new_epoch_time.timestamp() if new_epoch_time is not None else 0),
+        new_epoch_time=int(new_epoch_time.timestamp()) if new_epoch_time is not None else 0,
         calendar_epoch_time=calendar_epoch_time,
         error_message=error_message,
     )
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=False)  # Change this to False for production
