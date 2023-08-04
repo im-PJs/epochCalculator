@@ -1,46 +1,21 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, jsonify
 from datetime import datetime, timedelta
 
 app = Flask(__name__)
 
-def process_date_to_epoch(request, form_data):
-    """Processes the date to epoch conversion."""
-    epoch_time = None
-    error_message = None
-    try:
-        form_data["year"] = year = int(request.form.get("year", form_data["year"]))
-        form_data["month"] = month = int(request.form.get("month", form_data["month"]))
-        form_data["day"] = day = int(request.form.get("day", form_data["day"]))
-        form_data["hour"] = hour = int(request.form.get("hour", form_data["hour"]))
-        form_data["minute"] = minute = int(request.form.get("minute", form_data["minute"]))
-        form_data["second"] = second = int(request.form.get("second", form_data["second"]))
-        form_data["hour_format"] = hour_format = request.form.get("hour_format", "12")
-        form_data["am_pm"] = am_pm = request.form.get("am_pm", "AM")
+def process_date_to_epoch(date_time):
+    epoch_time = int(date_time.timestamp())
+    return epoch_time
 
-        if hour_format == "12":
-            if am_pm == "PM" and hour != 12:
-                hour += 12
-            elif am_pm == "AM" and hour == 12:
-                hour = 0
 
-        date_time = datetime(year, month, day, hour, minute, second)
-        epoch_time = int(date_time.timestamp())
-    except Exception as e:
-        error_message = str(e)
+def process_date_to_epoch(date_time):
+    epoch_time = int(date_time.timestamp())
+    return epoch_time
 
-    return epoch_time, error_message
-
-def process_epoch_calculator(request):
-    """Processes the epoch calculator."""
+def process_epoch_calculator(weeks, days, hours, minutes, seconds):
     error_message = None
     time_to_add = 0
     try:
-        weeks = request.form.get("weeks", type=int, default=0)
-        days = request.form.get("days", type=int, default=0)
-        hours = request.form.get("hours", type=int, default=0)
-        minutes = request.form.get("minutes", type=int, default=0)
-        seconds = request.form.get("seconds", type=int, default=0)
-
         # Validate number of days
         if days > 999999999:
             raise OverflowError("Number of days must be less than or equal to 999,999,999")
@@ -75,60 +50,42 @@ def process_epoch_calculator(request):
 
     return current_epoch_time, time_to_add, time_to_add_explanation, new_epoch_time, error_message
 
-def process_calendar_date_to_epoch(request):
-    """Processes the calendar date to epoch conversion."""
-    epoch_time = None
-    error_message = None
-    try:
-        date_input = request.form.get("calendar-date", None)
-        if date_input:
-            # Input format is 'YYYY-MM-DD'
-            year, month, day = map(int, date_input.split('-'))
-            date_time = datetime(year, month, day)  # Time is assumed to be 00:00:00
-            epoch_time = int(date_time.timestamp())
-    except Exception as e:
-        error_message = str(e)
+def process_calendar_date_to_epoch(date_input):
+    year, month, day = map(int, date_input.split('-'))
+    date_time = datetime(year, month, day)
+    epoch_time = int(date_time.timestamp())
+    return epoch_time
 
-    return epoch_time, error_message
+@app.route('/convert-date-to-epoch', methods=['POST'])
+def convert_date_to_epoch():
+    date_time = request.json['date']
+    epoch_time = process_date_to_epoch(datetime.fromisoformat(date_time))
+    return jsonify(epoch_time=epoch_time)
 
-@app.route('/', methods=['GET', 'POST'])
+@app.route('/convert-calendar-date-to-epoch', methods=['POST'])
+def convert_calendar_date_to_epoch():
+    date_input = request.json['calendar_date']
+    epoch_time = process_calendar_date_to_epoch(date_input)
+    return jsonify(epoch_time=epoch_time)
+
+@app.route('/process-epoch-calculator', methods=['POST'])
+def process_epoch_calculator_view():
+    weeks = request.json.get("weeks", 0)
+    days = request.json.get("days", 0)
+    hours = request.json.get("hours", 0)
+    minutes = request.json.get("minutes", 0)
+    seconds = request.json.get("seconds", 0)
+
+    current_epoch_time, time_to_add, time_to_add_explanation, new_epoch_time, error_message = process_epoch_calculator(weeks, days, hours, minutes, seconds)
+    return jsonify(current_epoch_time=int(current_epoch_time.timestamp()) if current_epoch_time else None,
+                   time_to_add=int(time_to_add),
+                   time_to_add_explanation=time_to_add_explanation,
+                   new_epoch_time=int(new_epoch_time.timestamp()) if new_epoch_time else None,
+                   error_message=error_message)
+
+@app.route('/')
 def index():
-    form_data = {
-        "year": datetime.utcnow().year,
-        "month": datetime.utcnow().month,
-        "day": datetime.utcnow().day,
-        "hour": datetime.utcnow().hour,
-        "minute": datetime.utcnow().minute,
-        "second": datetime.utcnow().second,
-        "hour_format": "12",
-        "am_pm": "AM",
-    }
-
-    if request.method == 'POST':
-        epoch_time, error_message_date_to_epoch = process_date_to_epoch(request, form_data)
-        current_epoch_time, time_to_add, time_to_add_explanation, new_epoch_time, error_message_epoch_calculator = process_epoch_calculator(request)
-        calendar_epoch_time, error_message_calendar_date_to_epoch = process_calendar_date_to_epoch(request)
-    else:
-        epoch_time = error_message_date_to_epoch = current_epoch_time = time_to_add = time_to_add_explanation = new_epoch_time = error_message_epoch_calculator = None
-        calendar_epoch_time = error_message_calendar_date_to_epoch = None
-
-    # Combine the error messages if there are any
-    error_message = error_message_date_to_epoch or error_message_epoch_calculator or error_message_calendar_date_to_epoch
-
-    if time_to_add is None:
-        time_to_add = 0
-
-    return render_template(
-        "index.html",
-        epoch_time=epoch_time,
-        form_data=form_data,
-        current_epoch_time=int(current_epoch_time.timestamp()) if current_epoch_time is not None else None,
-        time_to_add=int(time_to_add),
-        time_to_add_explanation=time_to_add_explanation,
-        new_epoch_time=int(new_epoch_time.timestamp()) if new_epoch_time is not None else 0,
-        calendar_epoch_time=calendar_epoch_time,
-        error_message=error_message,
-    )
+    return render_template("index.html")
 
 if __name__ == '__main__':
     app.run(debug=False)  # Change this to False for production
