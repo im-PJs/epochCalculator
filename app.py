@@ -7,11 +7,6 @@ def process_date_to_epoch(date_time):
     epoch_time = int(date_time.timestamp())
     return epoch_time
 
-
-def process_date_to_epoch(date_time):
-    epoch_time = int(date_time.timestamp())
-    return epoch_time
-
 def process_epoch_calculator(weeks, days, hours, minutes, seconds):
     error_message = None
     time_to_add = 0
@@ -88,4 +83,4 @@ def index():
     return render_template("index.html")
 
 if __name__ == '__main__':
-    app.run(debug=False)  # Change this to False for production
+    app.run(debug=True)  # Change this to False for production
