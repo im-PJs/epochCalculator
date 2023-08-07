@@ -2,20 +2,51 @@
 setlocal enabledelayedexpansion
 
 cd D:\Coding\epochCalculator\epochCalculator
-echo Changed directory to %CD%
+
+echo.
 echo +----------------------------------------+
 echo ^|             UPDATING CODE              ^|
 echo +----------------------------------------+
 echo.
 
 :: Checkout develop branch
-git checkout develop >nul
+git checkout develop
+
+:: If checkout failed, exit
+if errorlevel 1 (
+    echo Error switching to develop branch.
+    pause
+    exit
+)
 
 :: Let user input the changes made
 set /p commitMsg="Enter your commit message: "
-git add . >nul
+git add .
+
+:: If add failed, exit
+if errorlevel 1 (
+    echo Error adding changes.
+    pause
+    exit
+)
+
 git commit -m "!commitMsg!" 
-git push origin develop >nul
+
+:: If commit failed, exit
+if errorlevel 1 (
+    echo Error committing changes.
+    pause
+    exit
+)
+
+git push origin develop
+
+:: If push failed, exit
+if errorlevel 1 (
+    echo Error pushing to develop branch.
+    pause
+    exit
+)
 
 echo.
 echo +----------------------------------------+
@@ -42,15 +73,12 @@ choice /C YN /M "Press Y for Yes, N for No:"
 
 if %ERRORLEVEL%==2 (
     echo.
-    echo Stopping testing environment...
     git hstop
-    echo.
     echo +----------------------------------------+
     echo ^|           OPERATION ABORTED           ^|
     echo +----------------------------------------+
     echo.
-    echo Press any key to exit.
-    pause >nul
+    pause
     endlocal
     exit
 )
@@ -65,16 +93,32 @@ echo.
 git hstop
 
 :: Backup main branch
-git checkout main >nul
-git branch -D backup_main >nul 2>nul
+git checkout main
+
+:: If checkout failed, exit
+if errorlevel 1 (
+    echo Error switching to main branch.
+    pause
+    exit
+)
+
+git branch -D backup_main 2>nul
 git branch backup_main
-git push -f origin backup_main >nul
+git push origin backup_main --force-with-lease
 
 :: Merge develop into main and deploy
 echo.
 echo Merging...
-git merge develop >nul
-git push origin main >nul
+git merge develop
+
+:: If merge failed, exit
+if errorlevel 1 (
+    echo Merge failed. Resolve conflicts and try again.
+    pause
+    exit
+)
+
+git push origin main
 
 :: Push to Heroku
 echo.
@@ -88,6 +132,5 @@ echo +----------------------------------------+
 echo ^|          OPERATION COMPLETED           ^|
 echo +----------------------------------------+
 echo.
-echo Press any key to exit.
-pause >nul
+pause
 endlocal
