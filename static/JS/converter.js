@@ -188,11 +188,17 @@ function convertCalendarDateToEpoch() {
     var day = parseInt(parts[2], 10);
 
     var selectedDate = new Date(year, month, day);
-    if (document.getElementById("customTimeToggle").checked) {
-        selectedDate.setHours(document.getElementById("customHour").value);
-        selectedDate.setMinutes(document.getElementById("customMinute").value);
-        selectedDate.setSeconds(document.getElementById("customSecond").value);
+
+    // Check if the 12AM or 12PM checkboxes are selected, regardless of customTimeToggle
+    var is12AMChecked = document.getElementById("time12AMCal").checked;
+    var is12PMChecked = document.getElementById("time12PMCal").checked;
+    
+    if (document.getElementById("customTimeToggle").checked || is12AMChecked || is12PMChecked) {
+        selectedDate.setHours(parseInt(document.getElementById("customHour").value, 10));
+        selectedDate.setMinutes(parseInt(document.getElementById("customMinute").value, 10));
+        selectedDate.setSeconds(parseInt(document.getElementById("customSecond").value, 10));
     }
+    
 
     var epochTime = selectedDate.getTime() / 1000;
     if (useGMT) {
