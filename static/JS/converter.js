@@ -127,6 +127,7 @@ function timeSince(date) {
 
 function toggleCustomTime() {
     var toggle = document.getElementById("customTimeToggle").checked;
+    console.log('Custom Time Toggle:', toggle);
     var displayValue = toggle ? "inline" : "none";
 
     // Set the display value for custom time inputs
@@ -145,16 +146,21 @@ function toggleCustomTime() {
 }
 
 
+
 function presetTime(checkboxElement) {
+    console.log('Preset Time triggered for:', checkboxElement.id, 'Checked Status:', checkboxElement.checked);
+
     var is12AM = checkboxElement.id === "time12AM";
     var is12PM = checkboxElement.id === "time12PM";
 
     if (is12AM && checkboxElement.checked) {
+        console.log('Setting time to 12 AM.');
         document.getElementById("customHour").value = 0;
         document.getElementById("customMinute").value = 0;
         document.getElementById("customSecond").value = 0;
         document.getElementById("time12PM").checked = false; // uncheck the other checkbox
     } else if (is12PM && checkboxElement.checked) {
+        console.log('Setting time to 12 PM.');
         document.getElementById("customHour").value = 12;
         document.getElementById("customMinute").value = 0;
         document.getElementById("customSecond").value = 0;
