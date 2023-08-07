@@ -2,13 +2,13 @@
 <html>
 
 <head>
-    <title>Epoch Calculator</title>
+    <title>Epoch Calculator - Unix Calculator</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='CSS/styles.css') }}">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
 </head>
 
 <body class="dark-mode">
-    <h1>Epoch Calculator</h1>
+    <h1>Epoch Calculator & Unix Calculator</h1>
     <!-- Toggle Theme Button -->
     <button class="button" onclick="toggleTheme()">Toggle Theme</button>
 
@@ -48,13 +48,16 @@
             <input type="checkbox" id="calendarUseGMT">    
             <label for="calendarUseGMT">Use GMT</label> 
             <br>
-            <input type="checkbox" id="time12AM" onclick="presetTime(this)">    
+            <dir id="ampmCheck" style="padding: 0%;margin: 0%;">
+            <input type="checkbox" id="time12AM" onclick="presetTime(this)" checked>    
             <label for="time12AM">12 AM</label> 
             <input type="checkbox" id="time12PM" onclick="presetTime(this)">    
             <label for="time12PM">12 PM</label>
+            </dir>
             <input id="customHour" type="number" placeholder="HH" disabled>
             <input id="customMinute" type="number" placeholder="MM" disabled>
             <input id="customSecond" type="number" placeholder="SS" disabled>
+            <br>
             <button class="button" onclick="convertCalendarDateToEpoch()">Convert to Epoch</button>       
             <div id="calendarDateToEpochResult"></div>
         </div>

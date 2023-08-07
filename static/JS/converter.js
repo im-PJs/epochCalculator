@@ -125,22 +125,54 @@ function timeSince(date) {
     return Math.floor(seconds) + " seconds ago";
 }
 
-
-
 function toggleCustomTime() {
     var toggle = document.getElementById("customTimeToggle").checked;
     var displayValue = toggle ? "inline" : "none";
 
-    // Set the display value
+    // Set the display value for custom time inputs
     document.getElementById("customHour").style.display = displayValue;
     document.getElementById("customMinute").style.display = displayValue;
     document.getElementById("customSecond").style.display = displayValue;
 
-    // Set the disabled property for inputs
+    // Set the disabled property for custom time inputs
     document.getElementById("customHour").disabled = !toggle;
     document.getElementById("customMinute").disabled = !toggle;
     document.getElementById("customSecond").disabled = !toggle;
+
+    // Now, disable or enable the preset time checkboxes (12 AM and 12 PM) based on the toggle
+    document.getElementById('time12AM').disabled = toggle;
+    document.getElementById('time12PM').disabled = toggle;
+
+    // Optionally, if custom time is turned ON, uncheck 12 AM and 12 PM checkboxes
+    if (toggle) {
+        document.getElementById('time12AM').checked = false;
+        document.getElementById('time12PM').checked = false;
+    }
 }
+
+function presetTime(checkboxElement) {
+    var is12AM = checkboxElement.id === "time12AM";
+    var is12PM = checkboxElement.id === "time12PM";
+
+    // Reset custom time fields when a preset is clicked.
+    document.getElementById("customTimeToggle").checked = false;
+    toggleCustomTime();
+
+    if (is12AM && checkboxElement.checked) {
+        document.getElementById("customHour").value = 0;
+        document.getElementById("customMinute").value = 0;
+        document.getElementById("customSecond").value = 0;
+        document.getElementById("time12PM").checked = false; // uncheck the other checkbox
+    } else if (is12PM && checkboxElement.checked) {
+        document.getElementById("customHour").value = 12;
+        document.getElementById("customMinute").value = 0;
+        document.getElementById("customSecond").value = 0;
+        document.getElementById("time12AM").checked = false; // uncheck the other checkbox
+    }
+}
+
+
+
 
 // Converts a selected calendar date to epoch time.
 function convertCalendarDateToEpoch() {
@@ -364,6 +396,15 @@ function presetTime(checkboxElement) {
     }
 }
 
+
+// Shows or hides the specific epoch input based on the selection.
+document.getElementById("customTimeToggle").addEventListener("change", function () {
+    if (this.checked) {
+        document.getElementById("ampmCheck").style.display = 'none';  // show it
+    } else {
+        document.getElementById("ampmCheck").style.display = 'inline-block';  // hide it
+    }
+});
 
 // Shows or hides the specific epoch input based on the selection.
 document.getElementById("epochType").addEventListener("change", function () {
