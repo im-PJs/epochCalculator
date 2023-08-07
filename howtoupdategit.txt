@@ -15,12 +15,14 @@ git pull origin develop
 git add .
 
 
-git commit -m "CHANGE"
+git commit -m "*LET USER INPUT THE CHANGES MADE*"
 
 # Push your updates to the remote testing branch:
 git push origin develop
 
+WAIT HERE FOR USER TO CONFIRM THEY WANT TO CONTINUE OR CANCEL
 
+IF THEY CONFIRM, DO ANOTHER AND EXPLAIN YOU WILL LOSE
 # --------------------------
 # Backing up your main branch
 # --------------------------
@@ -34,7 +36,9 @@ git branch backup_main
 # Push the `backup_main` branch to GitHub:
 git push origin backup_main
 
+WAIT HERE FOR USER TO CONFIRM THEY WANT TO CONTINUE OR CANCEL
 
+IF THEY CONFIRM, DO ANOTHER AND EXPLAIN YOU WILL LOSE
 # --------------------------
 # Merging testing into main
 # --------------------------
@@ -47,3 +51,7 @@ git merge develop
 
 # Push the updated `main` branch to GitHub:
 git push origin main
+
+push to herku
+git push heroku main
+
