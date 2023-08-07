@@ -13,7 +13,9 @@ window.addEventListener('DOMContentLoaded', (event) => {
     // Initial state setup
     toggleCustomTime(); // Call this function to set the initial state
     document.getElementById("epochType").dispatchEvent(new Event("change"));
-    document.getElementById("calendarDate").valueAsDate = new Date();
+    var today = new Date();
+    var formattedDate = today.toISOString().slice(0, 10); // Converts date to 'yyyy-mm-dd' format
+    document.getElementById("calendarDateToEpoch").value = formattedDate;
 
 });
 
