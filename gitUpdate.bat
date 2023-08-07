@@ -8,22 +8,21 @@ echo ^|             UPDATING CODE              ^|
 echo +----------------------------------------+
 echo.
 
-
 :: Checkout develop branch
-git checkout develop >nul
+git checkout develop
+echo.
 
 :: Let user input the changes made
 set /p commitMsg="Enter your commit message: "
-git add . >nul
-git commit -m "!commitMsg!" 
-git push origin develop >nul
+git add .
+git commit -m "!commitMsg!"
+git push origin develop
 
 echo.
 echo +----------------------------------------+
 echo ^|            STARTING HEROKU             ^|
 echo +----------------------------------------+
 echo.
-
 
 :: Start Heroku for testing
 git hstart
@@ -43,6 +42,12 @@ echo Test your website. After testing, continue to the backup step?
 choice /C YN /M "Press Y for Yes, N for No:"
 if %ERRORLEVEL%==2 (
     git hstop
+    echo.
+    echo +----------------------------------------+
+    echo ^|          Program Terminated            ^|
+    echo +----------------------------------------+
+    echo Press any key to exit.
+    pause >nul
     exit
 )
 
@@ -55,37 +60,42 @@ echo +----------------------------------------+
 git hstop
 
 :: Backup main branch
-git checkout main >nul
-git branch backup_main >nul
-git push origin backup_main >nul
+git checkout main
+git branch -f backup_main
+git push -f origin backup_main
 
-:: Wait for user confirmation
 echo.
 echo +----------------------------------------+
 echo ^|             MERGE CONFIRMATION         ^|
 echo +----------------------------------------+
 echo Do you want to continue to the merging step?
 choice /C YN /M "Press Y for Yes, N for No:"
-if %ERRORLEVEL%==2 exit
+if %ERRORLEVEL%==2 (
+    echo.
+    echo +----------------------------------------+
+    echo ^|          Program Terminated            ^|
+    echo +----------------------------------------+
+    echo Press any key to exit.
+    pause >nul
+    exit
+)
 
 :: Merge develop into main and deploy
 echo.
 echo Merging...
-git merge develop >nul
-git push origin main >nul
+git merge develop
+git push origin main
 
-echo.
-echo +----------------------------------------+
-echo ^|          OPERATION COMPLETED           ^|
-echo +----------------------------------------+
 echo.
 echo Starting Heroku site push
 git push heroku main
 
-
 echo +----------------------------------------+
 echo ^|          Program Completed            ^|
 echo +----------------------------------------+
+echo.
+echo Main Site: https://epochcalculator.com
+echo.
 echo Press any key to exit.
 pause >nul
 endlocal
