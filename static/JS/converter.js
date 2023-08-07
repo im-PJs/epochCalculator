@@ -166,6 +166,9 @@ function presetTime(checkboxElement) {
         document.getElementById("customSecond").value = 0;
         document.getElementById("time12AM").checked = false; // uncheck the other checkbox
     }
+
+    return 'Function executed';
+
 }
 
 
