@@ -1,54 +1,49 @@
 /* General styles */
 body {
-    font-family: 'Montserrat', sans-serif; /* Body Text */
+    font-family: 'Montserrat', sans-serif;
+   /* Body Text */
     line-height: 1.6;
     margin: 0;
     padding: 0;
     transition: background-color 0.5s, color 0.5s;
-    background-size: cover; /* Ready for a potential background image */
+    background-size: cover;
+   /* Ready for a potential background image */
 }
-
 /* Light Mode */
 body.light-mode {
-    background-color: #f4f4f4; /* Primary Color */
+    background-color: #f4f4f4;
+   /* Primary Color */
     color: #333333;
 }
-
 body.light-mode button:hover {
-    background-color: #FFD700; /* Tertiary color on button hover for light mode */
+    background-color: #FFD700;
+   /* Tertiary color on button hover for light mode */
     border-color: #FFD700;
 }
-
 /* Dark Mode */
 body.dark-mode {
-    background-color: #333333; /* Primary Color */
+    background-color: #333333;
+   /* Primary Color */
     color: #f4f4f4;
 }
-
-body.dark-mode input[type="number"],
-body.dark-mode input[type="date"],
-body.dark-mode select {
+body.dark-mode input[type="number"], body.dark-mode input[type="date"], body.dark-mode select {
     background-color: #444444;
     color: #f4f4f4;
     border: 1px solid #555555;
 }
-
 body.dark-mode select option {
     background-color: #444444;
     color: #f4f4f4;
 }
-
-body.dark-mode select option:checked, 
-body.dark-mode select option:hover {
+body.dark-mode select option:checked, body.dark-mode select option:hover {
     background-color: #555555;
     color: #f4f4f4;
 }
-
 body.dark-mode button:hover {
-    background-color: #b3a125; /* Tertiary Color for dark mode */
+    background-color: #b3a125;
+   /* Tertiary Color for dark mode */
     border-color: #b3a125;
 }
-
 /* Container */
 .container {
     display: flex;
@@ -58,29 +53,33 @@ body.dark-mode button:hover {
     margin: 0 auto;
     padding: 20px;
 }
-
 /* Headers */
 h1, h2 {
-    font-family: 'Merriweather', serif; /* Headers */
+    font-family: 'Merriweather', serif;
+   /* Headers */
     color: inherit;
     margin: 10px 0;
-    font-weight: 600; /* Bolder headers */
+    font-weight: 600;
+   /* Bolder headers */
 }
-
 /* Button styles */
 button {
     padding: 10px 20px;
-    background-color: #800000; /* Secondary Color */
-    border: 2px solid transparent; /* Transparent border to maintain button size on hover */
+    background-color: #800000;
+   /* Secondary Color */
+    border: 2px solid transparent;
+   /* Transparent border to maintain button size on hover */
     color: #fff;
     cursor: pointer;
     transition: background-color 0.3s, border-color 0.3s;
     font-size: 16px;
-    border-radius: 5px; /* Rounded corners for a modern look */
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
-    outline: none; /* Removes the default browser outline */
+    border-radius: 5px;
+   /* Rounded corners for a modern look */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+   /* Subtle shadow for depth */
+    outline: none;
+   /* Removes the default browser outline */
 }
-
 /* Dark Mode Toggle */
 .dark-toggle {
     cursor: pointer;
@@ -88,14 +87,14 @@ button {
     background-color: inherit;
     border: 1px solid #e0e0e0;
     transition: background-color 0.3s;
-    border-radius: 5px; /* Consistent with other button styles */
-    margin-left: 10px; /* For spacing from other header elements */
+    border-radius: 5px;
+   /* Consistent with other button styles */
+    margin-left: 10px;
+   /* For spacing from other header elements */
 }
-
 .dark-toggle:hover {
     background-color: #555555;
 }
-
 /* Section styles */
 .section {
     flex: 1 1 calc(33% - 40px);
@@ -104,47 +103,46 @@ button {
     border: 1px solid #e0e0e0;
     margin: 20px 0;
     background-color: inherit;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Consistent shadow for depth */
-    border-radius: 5px; /* Consistent rounding */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+   /* Consistent shadow for depth */
+    border-radius: 5px;
+   /* Consistent rounding */
 }
-
 /* Responsive Design */
 @media screen and (max-width: 1200px) {
     .section {
         flex: 1 1 calc(50% - 40px);
         min-width: calc(50% - 40px);
-    }
+   }
 }
-
 @media screen and (max-width: 768px) {
     .section {
         flex: 1 1 100%;
         min-width: 100%;
-    }
+   }
 }
-
 /* Input and select styles */
-input[type="number"],
-input[type="date"],
-select {
-    padding: 10px 15px; 
-    width: 200px; /* Fixed width for all inputs, selects, and buttons */
+input[type="number"], input[type="date"], select {
+    padding: 10px 15px;
+    width: 200px;
+   /* Fixed width for all inputs, selects, and buttons */
     margin-right: 10px;
     border: 1px solid #e0e0e0;
     background-color: inherit;
     color: inherit;
-    border-radius: 5px; /* Rounded corners */
-    font-size: 16px; /* Font size consistency */
-    outline: none; /* Removes the default browser outline */
+    border-radius: 5px;
+   /* Rounded corners */
+    font-size: 16px;
+   /* Font size consistency */
+    outline: none;
+   /* Removes the default browser outline */
 }
-
 /* Tooltip styles */
 .tooltip {
     position: relative;
     display: inline-block;
     cursor: help;
 }
-
 .tooltip .tooltiptext {
     visibility: hidden;
     background-color: #555;
@@ -160,7 +158,6 @@ select {
     opacity: 0;
     transition: opacity 0.3s;
 }
-
 .tooltip:hover .tooltiptext {
     visibility: visible;
     opacity: 1;
