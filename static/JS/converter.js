@@ -136,8 +136,8 @@ function toggleCustomTime() {
     document.getElementById("customSecond").style.display = displayValue;
 
     // Set the display value for 12AM/12PM checkboxes
-    document.getElementById("time12AM").style.display = toggle ? "none" : "inline";
-    document.getElementById("time12PM").style.display = toggle ? "none" : "inline";
+    document.getElementById("time12AMCal").style.display = toggle ? "none" : "inline";
+    document.getElementById("time12PMCal").style.display = toggle ? "none" : "inline";
 
     // Set the disabled property for custom time inputs
     document.getElementById("customHour").disabled = !toggle;
@@ -150,8 +150,8 @@ function toggleCustomTime() {
 function presetTime(checkboxElement) {
     console.log('Preset Time triggered for:', checkboxElement.id, 'Checked Status:', checkboxElement.checked);
 
-    var is12AM = checkboxElement.id === "time12AM";
-    var is12PM = checkboxElement.id === "time12PM";
+    var is12AM = checkboxElement.id === "time12AMCal";
+    var is12PM = checkboxElement.id === "time12PMCal";
 
     if (is12AM && checkboxElement.checked) {
         console.log('Setting time to 12 AM.');
