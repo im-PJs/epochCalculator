@@ -13,6 +13,7 @@ window.addEventListener('DOMContentLoaded', (event) => {
     // Initial state setup
     toggleCustomTime(); // Call this function to set the initial state
     document.getElementById("epochType").dispatchEvent(new Event("change"));
+    document.getElementById("calendarDate").valueAsDate = new Date();
 
 });
 
@@ -192,13 +193,30 @@ function convertCalendarDateToEpoch() {
     // Check if the 12AM or 12PM checkboxes are selected, regardless of customTimeToggle
     var is12AMChecked = document.getElementById("time12AMCal").checked;
     var is12PMChecked = document.getElementById("time12PMCal").checked;
-    
-    if (document.getElementById("customTimeToggle").checked || is12AMChecked || is12PMChecked) {
-        selectedDate.setHours(parseInt(document.getElementById("customHour").value, 10));
-        selectedDate.setMinutes(parseInt(document.getElementById("customMinute").value, 10));
-        selectedDate.setSeconds(parseInt(document.getElementById("customSecond").value, 10));
+
+    var hour, minute, second;
+    if (document.getElementById("customTimeToggle").checked) {
+        hour = parseInt(document.getElementById("customHour").value, 10);
+        minute = parseInt(document.getElementById("customMinute").value, 10);
+        second = parseInt(document.getElementById("customSecond").value, 10);
+    } else if (is12AMChecked) {
+        hour = 0;
+        minute = 0;
+        second = 0;
+    } else if (is12PMChecked) {
+        hour = 12;
+        minute = 0;
+        second = 0;
+    } else {
+        // Default to 12AM if none of the above conditions are met
+        hour = 0;
+        minute = 0;
+        second = 0;
     }
-    
+
+    selectedDate.setHours(hour);
+    selectedDate.setMinutes(minute);
+    selectedDate.setSeconds(second);
 
     var epochTime = selectedDate.getTime() / 1000;
     if (useGMT) {
@@ -209,6 +227,7 @@ function convertCalendarDateToEpoch() {
     document.getElementById("calendarDateToEpochResult").textContent = "Epoch time: " + epochTime;    
     displaySuccess("Conversion successful!");
 }
+
 
 function fillMonths() {
     const dropdown = document.getElementById("monthDropdown");
