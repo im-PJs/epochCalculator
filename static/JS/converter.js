@@ -380,24 +380,6 @@ function clearMessages() {
     document.getElementById("successMessage").textContent = "";
 }
 
-function presetTime(checkboxElement) {
-    var is12AM = checkboxElement.id === "time12AM";
-    var is12PM = checkboxElement.id === "time12PM";
-
-    if (is12AM && checkboxElement.checked) {
-        document.getElementById("customHour").value = 0;
-        document.getElementById("customMinute").value = 0;
-        document.getElementById("customSecond").value = 0;
-        document.getElementById("time12PM").checked = false; // uncheck the other checkbox
-    } else if (is12PM && checkboxElement.checked) {
-        document.getElementById("customHour").value = 12;
-        document.getElementById("customMinute").value = 0;
-        document.getElementById("customSecond").value = 0;
-        document.getElementById("time12AM").checked = false; // uncheck the other checkbox
-    }
-}
-
-
 // Shows or hides the specific epoch input based on the selection.
 document.getElementById("customTimeToggle").addEventListener("change", function () {
     if (this.checked) {
