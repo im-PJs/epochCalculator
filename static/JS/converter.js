@@ -158,22 +158,18 @@ function presetTime(checkboxElement) {
         document.getElementById("customHour").value = 0;
         document.getElementById("customMinute").value = 0;
         document.getElementById("customSecond").value = 0;
-        document.getElementById("time12PM").checked = false; // uncheck the other checkbox
+        document.getElementById("time12PMCal").checked = false; // uncheck the other checkbox
     } else if (is12PM) {
         console.log('Setting time to 12 PM.');
         document.getElementById("customHour").value = 12;
         document.getElementById("customMinute").value = 0;
         document.getElementById("customSecond").value = 0;
-        document.getElementById("time12AM").checked = false; // uncheck the other checkbox
+        document.getElementById("time12AMCal").checked = false; // uncheck the other checkbox
     }
 
     return 'Function executed';
 
 }
-
-
-
-
 
 // Converts a selected calendar date to epoch time.
 function convertCalendarDateToEpoch() {
