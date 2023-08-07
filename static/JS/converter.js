@@ -13,6 +13,9 @@ window.addEventListener('DOMContentLoaded', (event) => {
     // Initial state setup
     toggleCustomTime(); // Call this function to set the initial state
     document.getElementById("epochType").dispatchEvent(new Event("change"));
+    var today = new Date();
+    var formattedDate = today.toISOString().slice(0, 10); // Converts date to 'yyyy-mm-dd' format
+    document.getElementById("calendarDateToEpoch").value = formattedDate;
 
 });
 
@@ -125,21 +128,50 @@ function timeSince(date) {
     return Math.floor(seconds) + " seconds ago";
 }
 
-
-
 function toggleCustomTime() {
     var toggle = document.getElementById("customTimeToggle").checked;
+    console.log('Custom Time Toggle:', toggle);
     var displayValue = toggle ? "inline" : "none";
 
-    // Set the display value
+    // Set the display value for custom time inputs
     document.getElementById("customHour").style.display = displayValue;
     document.getElementById("customMinute").style.display = displayValue;
     document.getElementById("customSecond").style.display = displayValue;
 
-    // Set the disabled property for inputs
+    // Set the display value for 12AM/12PM checkboxes
+    document.getElementById("time12AMCal").style.display = toggle ? "none" : "inline";
+    document.getElementById("time12PMCal").style.display = toggle ? "none" : "inline";
+
+    // Set the disabled property for custom time inputs
     document.getElementById("customHour").disabled = !toggle;
     document.getElementById("customMinute").disabled = !toggle;
     document.getElementById("customSecond").disabled = !toggle;
+}
+
+
+
+function presetTime(checkboxElement) {
+    console.log('Preset Time triggered for:', checkboxElement.id, 'Checked Status:', checkboxElement.checked);
+
+    var is12AM = checkboxElement.id === "time12AMCal";
+    var is12PM = checkboxElement.id === "time12PMCal";
+
+    if (is12AM && checkboxElement.checked) {
+        console.log('Setting time to 12 AM.');
+        document.getElementById("customHour").value = 0;
+        document.getElementById("customMinute").value = 0;
+        document.getElementById("customSecond").value = 0;
+        document.getElementById("time12PMCal").checked = false; // uncheck the other checkbox
+    } else if (is12PM && checkboxElement.checked) {
+        console.log('Setting time to 12 PM.');
+        document.getElementById("customHour").value = 12;
+        document.getElementById("customMinute").value = 0;
+        document.getElementById("customSecond").value = 0;
+        document.getElementById("time12AMCal").checked = false; // uncheck the other checkbox
+    }
+
+    return 'Function executed';
+
 }
 
 // Converts a selected calendar date to epoch time.
@@ -159,11 +191,34 @@ function convertCalendarDateToEpoch() {
     var day = parseInt(parts[2], 10);
 
     var selectedDate = new Date(year, month, day);
+
+    // Check if the 12AM or 12PM checkboxes are selected, regardless of customTimeToggle
+    var is12AMChecked = document.getElementById("time12AMCal").checked;
+    var is12PMChecked = document.getElementById("time12PMCal").checked;
+
+    var hour, minute, second;
     if (document.getElementById("customTimeToggle").checked) {
-        selectedDate.setHours(document.getElementById("customHour").value);
-        selectedDate.setMinutes(document.getElementById("customMinute").value);
-        selectedDate.setSeconds(document.getElementById("customSecond").value);
+        hour = parseInt(document.getElementById("customHour").value, 10);
+        minute = parseInt(document.getElementById("customMinute").value, 10);
+        second = parseInt(document.getElementById("customSecond").value, 10);
+    } else if (is12AMChecked) {
+        hour = 0;
+        minute = 0;
+        second = 0;
+    } else if (is12PMChecked) {
+        hour = 12;
+        minute = 0;
+        second = 0;
+    } else {
+        // Default to 12AM if none of the above conditions are met
+        hour = 0;
+        minute = 0;
+        second = 0;
     }
+
+    selectedDate.setHours(hour);
+    selectedDate.setMinutes(minute);
+    selectedDate.setSeconds(second);
 
     var epochTime = selectedDate.getTime() / 1000;
     if (useGMT) {
@@ -174,6 +229,7 @@ function convertCalendarDateToEpoch() {
     document.getElementById("calendarDateToEpochResult").textContent = "Epoch time: " + epochTime;    
     displaySuccess("Conversion successful!");
 }
+
 
 function fillMonths() {
     const dropdown = document.getElementById("monthDropdown");
@@ -347,23 +403,14 @@ function clearMessages() {
     document.getElementById("successMessage").textContent = "";
 }
 
-function presetTime(checkboxElement) {
-    var is12AM = checkboxElement.id === "time12AM";
-    var is12PM = checkboxElement.id === "time12PM";
-
-    if (is12AM && checkboxElement.checked) {
-        document.getElementById("customHour").value = 0;
-        document.getElementById("customMinute").value = 0;
-        document.getElementById("customSecond").value = 0;
-        document.getElementById("time12PM").checked = false; // uncheck the other checkbox
-    } else if (is12PM && checkboxElement.checked) {
-        document.getElementById("customHour").value = 12;
-        document.getElementById("customMinute").value = 0;
-        document.getElementById("customSecond").value = 0;
-        document.getElementById("time12AM").checked = false; // uncheck the other checkbox
+// Shows or hides the specific epoch input based on the selection.
+document.getElementById("customTimeToggle").addEventListener("change", function () {
+    if (this.checked) {
+        document.getElementById("ampmCheck").style.display = 'none';  // show it
+    } else {
+        document.getElementById("ampmCheck").style.display = 'inline-block';  // hide it
     }
-}
-
+});
 
 // Shows or hides the specific epoch input based on the selection.
 document.getElementById("epochType").addEventListener("change", function () {

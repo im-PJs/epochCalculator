@@ -2,13 +2,13 @@
 <html>
 
 <head>
-    <title>Epoch Calculator</title>
+    <title>Epoch Calculator - Unix Calculator</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='CSS/styles.css') }}">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
 </head>
 
 <body class="dark-mode">
-    <h1>Epoch Calculator</h1>
+    <h1>Epoch Calculator & Unix Calculator</h1>
     <!-- Toggle Theme Button -->
     <button class="button" onclick="toggleTheme()">Toggle Theme</button>
 
@@ -40,7 +40,7 @@
 
         <!-- Calendar Date to Epoch Converter Section -->
         <div class="section">
-            <h2>Calendar Date to Epoch Converter</h2>
+            <h2>Convert Calendar Date to Epoch Time Test</h2>
             <input id="calendarDateToEpoch" type="date">
             <br>
             <input type="checkbox" id="customTimeToggle" onclick="toggleCustomTime()">
@@ -48,26 +48,31 @@
             <input type="checkbox" id="calendarUseGMT">    
             <label for="calendarUseGMT">Use GMT</label> 
             <br>
-            <input type="checkbox" id="time12AM" onclick="presetTime(this)">    
-            <label for="time12AM">12 AM</label> 
-            <input type="checkbox" id="time12PM" onclick="presetTime(this)">    
-            <label for="time12PM">12 PM</label>
+            <div id="ampmCheck" style="padding: 0%;margin: 0%;">
+                <input type="checkbox" name="timeSelection" id="time12AMCal" onclick="presetTime(this)" checked>    
+                <label for="time12AMCal">12 AM</label> 
+                <input type="checkbox" name="timeSelection" id="time12PMCal" onclick="presetTime(this)">    
+                <label for="time12PMCal">12 PM</label>
+            </div>            
             <input id="customHour" type="number" placeholder="HH" disabled>
             <input id="customMinute" type="number" placeholder="MM" disabled>
             <input id="customSecond" type="number" placeholder="SS" disabled>
+            <br>
             <button class="button" onclick="convertCalendarDateToEpoch()">Convert to Epoch</button>       
             <div id="calendarDateToEpochResult"></div>
         </div>
 
         <!-- Drop-Down Date to Epoch Converter Section -->
         <div class="section">
-            <h2>Drop-Down Date to Epoch Converter</h2>
-            <select id="monthDropdown"></select>
-            <select id="dayDropdown"></select>
-            <select id="yearDropdown"></select>            
-            <select id="hourDropdown"></select>
-            <select id="minuteDropdown"></select>
+            <h2>Convert Drop-Down Date to Epoch Time</h2>
+            <select id="monthDropdown"></select>/
+            <select id="dayDropdown"></select>/
+            <select id="yearDropdown"></select>
+            <br>        
+            <select id="hourDropdown"></select>:
+            <select id="minuteDropdown"></select>:
             <select id="secondDropdown"></select>
+            <br>
             <button class="button" onclick="convertDropdownDateToEpoch()">Convert to Epoch</button>
             <label for="dropdownDateToEpochUseGMT">Use GMT</label>
             <input type="checkbox" id="dropdownDateToEpochUseGMT">
