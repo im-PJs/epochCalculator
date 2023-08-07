@@ -78,8 +78,14 @@ echo.
 echo +----------------------------------------+
 echo ^|          OPERATION COMPLETED           ^|
 echo +----------------------------------------+
-echo(
+echo.
+echo Starting Heroku site push
+git push heroku main
 
+
+echo +----------------------------------------+
+echo ^|          Program Completed            ^|
+echo +----------------------------------------+
 echo Press any key to exit.
 pause >nul
 endlocal
