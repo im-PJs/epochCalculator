@@ -1,32 +1,96 @@
-window.addEventListener('DOMContentLoaded', (event) => {
-    const currentMonth = new Date().getMonth() + 1; // Months are 0 indexed, so we add 1
-    const currentYear = new Date().getFullYear();
-    fillDays(currentMonth, currentYear);
-    fillHours();
-    fillMinutes();
-    fillSeconds();
-    fillMonths();
-    fillYears();
-    updateCurrentEpochTime();
-    setInterval(updateCurrentEpochTime, 1000);
+// Fills dropdown with numbers in a given range.
+function fillDropdown(id, start, end) {
+    var dropdown = document.getElementById(id);
+    for (let i = start; i <= end; i++) {
+        let option = document.createElement("option");
+        option.text = i.toString().padStart(2, '0');
+        option.value = i;
+        dropdown.add(option);
+    }
+    console.log(`Filled dropdown ${id} from ${start} to ${end}.`);
+}
 
-    // Initial state setup
-    toggleCustomTime(); // Call this function to set the initial state
-    document.getElementById("epochType").dispatchEvent(new Event("change"));
-    var today = new Date();
-    var formattedDate = today.toISOString().slice(0, 10); // Converts date to 'yyyy-mm-dd' format
-    document.getElementById("calendarDateToEpoch").value = formattedDate;
+function addSubtractCalc() {
+    var operationType = document.getElementById("operation").value;
+    var timeValue = parseInt(document.getElementById("timeValue").value, 10);
+    var timeUnit = document.getElementById("timeUnit").value;
+    var epochType = document.getElementById("epochType").value;
+    var specificEpoch = epochType === "specific" ? parseInt(document.getElementById("specificEpochInput").value, 10) : null;
 
+    if (isNaN(timeValue) || (specificEpoch !== null && isNaN(specificEpoch))) {
+        displayError("Please enter valid numeric values.");
+        return;
+    }
+
+    var timeUnitConversion = "";
+    var originalTimeValue = timeValue; // Store the original time value for later reference
+
+    switch (timeUnit) {
+        case "minutes": 
+            timeValue *= 60; 
+            timeUnitConversion = "(" + originalTimeValue + " minutes x 60 sec)";
+            break;
+        case "hours": 
+            timeValue *= 3600; 
+            timeUnitConversion = "(" + originalTimeValue + " hours x 3600 sec)";
+            break;
+        case "days": 
+            timeValue *= 86400; 
+            timeUnitConversion = "(" + originalTimeValue + " days x 86400 sec)";
+            break;
+        case "weeks": 
+            timeValue *= 604800; 
+            timeUnitConversion = "(" + originalTimeValue + " weeks x 604800 sec)";
+            break;
+    }    
+
+    var currentEpoch = new Date().getTime() / 1000;
+
+    if (epochType === "specific") {
+        currentEpoch = specificEpoch;
+    }
+
+    var newEpochTime = operationType === "add" ? currentEpoch + timeValue : currentEpoch - timeValue;
+
+    if (newEpochTime < 0) {
+        displayError("Subtraction resulted in a negative epoch time.");
+        return;
+    }
+
+    // Display the original time, the amount of seconds to add, the breakdown of the seconds calculation, and then the output time
+    var resultText = "Original Epoch Time: " + Math.round(currentEpoch) + "<br>";
+    resultText += "Amount of seconds to " + (operationType === "add" ? "add: " : "subtract: ") + timeValue + " Seconds " + timeUnitConversion + "<br>";
+    resultText += "Resulting Epoch Time: " + Math.round(newEpochTime);
+
+    document.getElementById("addSubtractResult").innerHTML = resultText;
+    displaySuccess("Operation successful!");
+}
+
+// Shows or hides the specific epoch input based on the selection.
+document.getElementById("customTimeToggle").addEventListener("change", function () {
+    if (this.checked) {
+        document.getElementById("ampmCheck").style.display = 'none';  // show it
+    } else {
+        document.getElementById("ampmCheck").style.display = 'inline-block';  // hide it
+    }
+});
+
+// Shows or hides the specific epoch input based on the selection.
+document.getElementById("epochType").addEventListener("change", function () {
+    if (this.value === "specific") {
+        document.getElementById("specificEpochInput").style.display = 'inline-block';  // show it
+    } else {
+        document.getElementById("specificEpochInput").style.display = 'none';  // hide it
+    }
+});
+
+// Enables or disables the specific epoch input based on the selection.
+document.getElementById("epochType").addEventListener("change", function () {
+    document.getElementById("specificEpochInput").disabled = this.value !== "specific";
 });
 
 
-// Updates and displays the current epoch time.
-function updateCurrentEpochTime() {
-    var now = new Date();
-    var epochTime = Math.floor(now.getTime() / 1000);
-    document.getElementById("epochTime").textContent = epochTime;
-    console.log("Updated current epoch time.");
-}
+
 
 // Converts the selected date from dropdowns to epoch time.
 function convertDropdownDateToEpoch() {
@@ -128,51 +192,8 @@ function timeSince(date) {
     return Math.floor(seconds) + " seconds ago";
 }
 
-function toggleCustomTime() {
-    var toggle = document.getElementById("customTimeToggle").checked;
-    console.log('Custom Time Toggle:', toggle);
-    var displayValue = toggle ? "inline" : "none";
-
-    // Set the display value for custom time inputs
-    document.getElementById("customHour").style.display = displayValue;
-    document.getElementById("customMinute").style.display = displayValue;
-    document.getElementById("customSecond").style.display = displayValue;
-
-    // Set the display value for 12AM/12PM checkboxes
-    document.getElementById("time12AMCal").style.display = toggle ? "none" : "inline";
-    document.getElementById("time12PMCal").style.display = toggle ? "none" : "inline";
-
-    // Set the disabled property for custom time inputs
-    document.getElementById("customHour").disabled = !toggle;
-    document.getElementById("customMinute").disabled = !toggle;
-    document.getElementById("customSecond").disabled = !toggle;
-}
 
 
-
-function presetTime(checkboxElement) {
-    console.log('Preset Time triggered for:', checkboxElement.id, 'Checked Status:', checkboxElement.checked);
-
-    var is12AM = checkboxElement.id === "time12AMCal";
-    var is12PM = checkboxElement.id === "time12PMCal";
-
-    if (is12AM && checkboxElement.checked) {
-        console.log('Setting time to 12 AM.');
-        document.getElementById("customHour").value = 0;
-        document.getElementById("customMinute").value = 0;
-        document.getElementById("customSecond").value = 0;
-        document.getElementById("time12PMCal").checked = false; // uncheck the other checkbox
-    } else if (is12PM && checkboxElement.checked) {
-        console.log('Setting time to 12 PM.');
-        document.getElementById("customHour").value = 12;
-        document.getElementById("customMinute").value = 0;
-        document.getElementById("customSecond").value = 0;
-        document.getElementById("time12AMCal").checked = false; // uncheck the other checkbox
-    }
-
-    return 'Function executed';
-
-}
 
 // Converts a selected calendar date to epoch time.
 function convertCalendarDateToEpoch() {
@@ -229,3 +250,8 @@ function convertCalendarDateToEpoch() {
     document.getElementById("calendarDateToEpochResult").textContent = "Epoch time: " + epochTime;    
     displaySuccess("Conversion successful!");
 }
+
+
+
+
+

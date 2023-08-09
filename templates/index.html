@@ -5,35 +5,48 @@
     <title>Epoch Calculator - Unix Calculator</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='CSS/styles.css') }}">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 
 <body class="dark-mode">
-    <h1>Epoch Calculator & Unix Calculator!</h1>
-    <!-- Toggle Theme Button -->
-    <button class="button" onclick="toggleTheme()">Toggle Theme</button>
-
-    <!-- Display Current Epoch Time -->
-    <div id="currentEpochTime">Current Epoch Time: <span id="epochTime"></span></div>
+    <h1>Epoch Calculator & Unix Calculator</h1>
+    <div id="epochAndToggleWrapper">
+        <!-- Toggle Theme Button -->
+        <div class='custom-toggle-switch'>
+            <label for="custom-toggle-input">
+                <input type='checkbox' id="custom-toggle-input" onclick="toggleTheme()">
+                <span class='custom-slider'></span>
+            </label>
+            <a class='custom-link' href='https://dribbble.com/shots/14199649-Dark-Light-Mode-Toggle-Switch-Pattern-A11y'>
+            </a>
+        </div>
+        
+        <!-- Display Current Epoch Time -->
+        <div id="currentEpochTime">Current Epoch Time: <span id="epochTime"></span></div>
+    </div>
+    
 
     <div class="container">
         <!-- Add/Subtract Epoch Time Section -->
         <div class="section">
             <h2>Add/Subtract Epoch Time</h2>
             <select id="epochType">
-                <option value="current">Current Epoch Time</option>
-                <option value="specific">Specific Epoch Time</option>
+                <option value="current">Current Time</option>
+                <option value="specific">Specific Time (In Epoch)</option>
             </select>
             <input id="specificEpochInput" type="number" placeholder="Enter specific epoch time" disabled>
             <select id="operation">
                 <option value="add">Add</option>
                 <option value="subtract">Subtract</option>
             </select>
-            <select id="timeUnit">
+            <select id="timeUnit" class="form-element">
                 <option value="seconds">Seconds</option>
                 <option value="minutes">Minutes</option>
                 <option value="hours">Hours</option>
+                <option value="days">Days</option>
+                <option value="weeks">Weeks</option>
             </select>
-            <input id="timeValue" type="number" placeholder="Enter value">
+            <input id="timeValue" type="number" class="form-element" placeholder="Enter value">
             <button class="button" class="button" onclick="addSubtractCalc()">Calculate Epoch</button>
             <div id="addSubtractResult"></div>
         </div>
@@ -65,15 +78,16 @@
         <!-- Drop-Down Date to Epoch Converter Section -->
         <div class="section">
             <h2>Convert Drop-Down Date to Epoch Time</h2>
-            <select id="monthDropdown"></select>/
-            <select id="dayDropdown"></select>/
+            <select id="monthDropdown"></select> /
+            <select id="dayDropdown"></select> /
             <select id="yearDropdown"></select>
             <br>        
-            <select id="hourDropdown"></select>:
-            <select id="minuteDropdown"></select>:
+            <select id="hourDropdown"></select> :
+            <select id="minuteDropdown"></select> :
             <select id="secondDropdown"></select>
             <br>
             <button class="button" onclick="convertDropdownDateToEpoch()">Convert to Epoch</button>
+            <br>
             <label for="dropdownDateToEpochUseGMT">Use GMT</label>
             <input type="checkbox" id="dropdownDateToEpochUseGMT">
             <div id="dropdownDateToEpochResult"></div>
@@ -83,6 +97,7 @@
         <div class="section">
             <h2>Convert Epoch Time to Human-Readable Date</h2>
             <input id="epochInput" type="number" placeholder="Enter epoch time">
+            <br>
             <button class="button" onclick="convertEpochToHumanReadable()">Convert to Date</button>
             <br>
             <label for="epochToHumanUseGMT">Use GMT</label>
@@ -99,8 +114,9 @@
         </div>
     </div>
 
-    <script src="{{ url_for('static', filename='JS/converter.js') }}"></script>
-    <script src="{{ url_for('static', filename='JS/converter2.js') }}"></script>
+    <script src="{{ url_for('static', filename='JS/TimeDateFunctions.js') }}"></script>
+    <script src="{{ url_for('static', filename='JS/UIInteractions.js') }}"></script>
+    <script src="{{ url_for('static', filename='JS/CalculationsEvents.js') }}"></script>
 </body>
 
 </html>
