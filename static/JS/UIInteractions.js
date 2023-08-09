@@ -1,19 +1,14 @@
 // Toggles between dark and light themes.
 function toggleTheme() {
     var element = document.body;
-    var checkbox = document.getElementById("toggleThemeCheckbox");
     if (element.classList.contains("dark-mode")) {
         element.classList.remove("dark-mode");
         element.classList.add("light-mode");
-        checkbox.checked = false;
     } else {
         element.classList.remove("light-mode");
         element.classList.add("dark-mode");
-        checkbox.checked = true;
     }
 }
-
-document.getElementById("toggleThemeCheckbox").addEventListener("change", toggleTheme);
 
 // Displays an error message.
 function displayError(message) {
@@ -76,3 +71,20 @@ function presetTime(checkboxElement) {
     return 'Function executed';
 
 }
+
+function updateTitle() {
+    var width = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
+    var title = document.getElementById('title');
+  
+    if (width <= 800) { // Change this value to the desired pixel width
+      title.textContent = "Epoch Calculator";
+    } else {
+      title.textContent = "Epoch Calculator and Unix Calculations";
+    }
+  }
+  
+  // Call the function on load
+  updateTitle();
+  
+  // Call the function on window resize
+  window.addEventListener('resize', updateTitle);

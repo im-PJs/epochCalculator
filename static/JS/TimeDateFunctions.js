@@ -109,6 +109,7 @@ window.addEventListener('DOMContentLoaded', (event) => {
     fillHours();
     fillMinutes();
     fillSeconds();
+    updateTitle();
     fillMonths();
     fillYears();
     updateCurrentEpochTime();

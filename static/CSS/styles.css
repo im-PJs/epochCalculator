@@ -156,10 +156,11 @@ button {
 @media screen and (max-width: 768px) {
     /* Adjust header size and margin */
     h1 {
-        font-size: 30px; 
-        margin: 20px 0; /* This centers vertically if needed */
+        font-size: 50px !important; 
+        margin: 20px 5px 10px 5px !important; /* This centers vertically if needed */
         text-align: center;
         margin-left: 50px;
+        
     }
     
     
@@ -195,6 +196,9 @@ button {
     /* Adjustments for even smaller screens like older smartphones */
     h1 {
         font-size: 18px; /* Reduced size for tiny screens */
+    }
+    #currentEpochTime {
+        margin-left: 20px; /* Adjust this as needed */
     }
 }
 
