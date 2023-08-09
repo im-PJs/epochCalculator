@@ -1,18 +1,21 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
-    <title>Epoch Calculator - Unix Calculator</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='CSS/styles.css') }}">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
+    <title>Epoch Calculator - Best Unix Timestamp Converter Online</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <meta name="description" content="Epoch Calculator offers Unix calculations, conversions between calendar dates and epoch time, and more. Try our tools today!">
+    <meta name="description" content="Discover the top Epoch Calculator online. Convert Unix timestamps, change calendar dates to epoch time, and perform advanced Unix calculations seamlessly.">
+    <meta name="keywords" content="Epoch Calculator, Unix timestamp converter, Unix calculations, calendar date to epoch">
     <meta name="robots" content="index, follow">
     <meta charset="UTF-8">
+    <link rel="stylesheet" href="{{ url_for('static', filename='CSS/styles.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
 </head>
 
 <body class="dark-mode">
-    <h1 id="title">Epoch Calculator and Unix Calculations</h1>
+    <header>
+        <h1 id="title">Epoch Calculator and Online Advanced Unix Timestamp Tools</h1>
+    </header>
     <div id="epochAndToggleWrapper">
         <!-- Toggle Theme Button -->
         <div class='custom-toggle-switch'>
@@ -115,6 +118,82 @@
             <div id="errorMessage"></div>
             <div id="loadingIndicator"></div>
         </div>
+        </div>
+    
+    <div class="container">
+
+    <!-- About Section -->
+    <section class="section-content info-section">
+        <h2>About Epoch Calculator</h2>
+        <p>Epoch time, also known as Unix time, has been the backbone of various platforms, including Discord. It represents the number of seconds that have elapsed since January 1, 1970, UTC. With the rising popularity of Discord bots and integrations, the need to understand and manipulate Unix timestamps has never been greater. Our Epoch Calculator was born out of this necessity, providing a user-friendly interface for Discord developers and enthusiasts alike to convert and calculate Unix timestamps with ease and precision.</p>
+    </section>
+    
+    <section class="section-content info-section">
+        <h2>About the Developer</h2>
+        <p>Hello there! I'm a solo developer with a passion for bringing creative solutions to common challenges. The Epoch Calculator is one of my many passion projects, tailored specifically for the vibrant Discord developer community. While there's an abundance of tools out there, my goal is to create ones that resonate with users on a personal level, understanding their specific needs and preferences. Your feedback and support fuel my enthusiasm to develop and improve. Thank you for being part of this journey!</p>
+    </section>
+    
+
+    <!-- How to Use Section -->
+    <section class="section-content info-section">
+        <h2>How to Use Our Tools</h2>
+        <p>Using the Epoch Calculator is straightforward:</p>
+        <ul>
+            <li><strong>Add/Subtract Epoch Time:</strong> Choose between the current time or a specific time. Select the desired operation (add or subtract) and input the value. Click 'Calculate Epoch'.</li>
+            <li><strong>Convert Calendar Date to Epoch Time:</strong> Choose a date and, if desired, specify a custom time. Decide whether you want the result in GMT or not. Click 'Convert to Epoch'.</li>
+            <li><strong>Convert Epoch Time to Human-Readable Date:</strong> Simply input the epoch time and choose if you want the result in GMT. Click 'Convert to Date'.</li>
+        </ul>
+    </section>
+
+    <!-- Benefits Section -->
+    <section class="section-content info-section">
+        <h2>Benefits of Using Epoch Calculator</h2>
+        <ul>
+            <li><strong>Precision:</strong> Accurate calculations that you can trust.</li>
+            <li><strong>Time Zone Handling:</strong> Seamlessly convert to and from GMT.</li>
+            <li><strong>User-Friendly Interface:</strong> Intuitive design makes conversions quick and easy.</li>
+        </ul>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="section-content info-section">
+        <h2>Frequently Asked Questions (FAQs)</h2>
+        <dl>
+            <dt>What is Epoch Time?</dt>
+            <dd>Epoch time, often referred to as Unix timestamp, counts the seconds from January 1, 1970, till the current moment.</dd>
+
+            <dt>Why Convert to Human-Readable Date?</dt>
+            <dd>While systems might use epoch time for accuracy and efficiency, humans often prefer a standard date and time format for readability.</dd>
+
+            <dt>Is there a cost associated with using this calculator?</dt>
+            <dd>No, our epoch calculator is free for everyone to use.</dd>
+
+            <dt>Why is Epoch time essential for Discord?</dt>
+            <dd>Discord, like many platforms, uses Unix timestamps, especially for events like messages and reactions. As Discord bots and applications have become more sophisticated, there's a growing need for developers to manipulate and interpret these timestamps accurately.</dd>
+
+            <dt>How can the Epoch Calculator assist Discord developers?</dt>
+            <dd>This tool is a handy companion for Discord bot developers, making it seamless to convert human-readable dates to Unix timestamps and vice versa. Instead of manually calculating or guessing dates, developers can use this tool to ensure accuracy in their applications.</dd>
+
+            <dt>What inspired you to develop this tool for Discord enthusiasts?</dt>
+            <dd>As a frequent Discord user and developer, I recognized the challenges many faced when dealing with Unix timestamps. This tool is my way of giving back to the community, ensuring that everyone can easily interpret and utilize epoch time without any hassles.</dd>
+
+        </dl>
+    </section>
+
+    <section class="section-content info-section">
+        <h2>Benefits of Using Epoch Calculator for Discord Developers</h2>
+        <ul>
+            <li><strong>Discord Integration Readiness:</strong> Our calculations align with Discord's internal time handling, ensuring your bots and applications run smoothly.</li>
+            <li><strong>Message Timestamp Decoding:</strong> Instantly convert message timestamps to human-readable formats for debugging or user experience improvements.</li>
+            <li><strong>Event Logging:</strong> For those building sophisticated bots that log events, our tool simplifies the process of time conversions, making your logs more intuitive.</li>
+        </ul>
+    </section>
+    
+    <section class="section-content footerClass">
+    <footer>
+        <p>Epoch Calculator © 2023. All rights reserved</p>
+        <p>Proudly brought to you by PJs</p>
+    </footer>    
     </div>
 
     <script defer src="{{ url_for('static', filename='JS/TimeDateFunctions.js') }}"></script>

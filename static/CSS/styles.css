@@ -1,59 +1,68 @@
-/* General styles */
+.section,
+h1,
+h2 {
+    text-align: center;
+}
+.dark-toggle,
+.section {
+    background-color: inherit;
+}
+.section,
+button {
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+.dark-toggle:hover,
+.tooltip .tooltiptext {
+    background-color: #555;
+}
 :root {
-    --light-bg: #FFFFFF;
+    --light-bg: #ffffff;
     --dark-bg: #333333;
     --light-border: #800000;
-    --dark-border: #FFD700;
+    --dark-border: #ffd700;
     --light-circle: #800000;
-    --dark-circle: #FFD700;
+    --dark-circle: #ffd700;
 }
-
 body {
-    font-family: 'Montserrat', sans-serif;
-   /* Body Text */
+    font-family: Montserrat, sans-serif;
     line-height: 1.6;
     margin: 0;
     padding: 0;
     transition: background-color 0.5s, color 0.5s;
     background-size: cover;
-   /* Ready for a potential background image */
 }
-/* Light Mode */
 body.light-mode {
     background-color: var(--light-bg);
-   /* Primary Color */
     color: var(--dark-bg);
 }
-body.light-mode button:hover {
-    background-color: var(--dark-border);
-   /* Tertiary color on button hover for light mode */
-    border-color: var(--dark-border);
-}
-/* Dark Mode */
-body.dark-mode {
-    background-color: var(--dark-bg);
-   /* Primary Color */
+body.dark-mode,
+h2 {
     color: var(--dark-border);
 }
-body.dark-mode input[type="number"], body.dark-mode input[type="date"], body.dark-mode select {
-    background-color: #444444;
-    color: var(--light-bg);
-    border: 1px solid #555555;
-}
-body.dark-mode select option {
-    background-color: #444444;
-    color: var(--light-bg);
-}
-body.dark-mode select option:checked, body.dark-mode select option:hover {
-    background-color: #555555;
-    color: var(--light-bg);
-}
-body.dark-mode button:hover {
+body.dark-mode button:hover,
+body.light-mode button:hover {
     background-color: var(--dark-border);
-   /* Tertiary Color for dark mode */
     border-color: var(--dark-border);
 }
-/* Container */
+body.dark-mode {
+    background-color: var(--dark-bg);
+}
+body.dark-mode input[type="date"],
+body.dark-mode input[type="number"],
+body.dark-mode select {
+    background-color: #444;
+    color: var(--light-bg);
+    border: 1px solid #555;
+}
+body.dark-mode select option {
+    background-color: #444;
+    color: var(--light-bg);
+}
+body.dark-mode select option:checked,
+body.dark-mode select option:hover {
+    background-color: #555;
+    color: var(--light-bg);
+}
 .container {
     display: flex;
     flex-wrap: wrap;
@@ -63,125 +72,87 @@ body.dark-mode button:hover {
     padding: 20px;
     position: relative;
 }
-/* Headers */
-h1 {
-    margin-bottom: 10px;
-}
+h1,
 h2 {
-    color: var(--dark-border);
-}
-h1, h2 {
-    font-family: 'Merriweather', serif;
-   /* Headers */
+    font-family: Merriweather, serif;
     color: inherit;
-    text-align: center;
     margin: 10px 0;
     font-weight: 600;
-   /* Bolder headers */
 }
-/* Button styles */
+.tooltip .tooltiptext,
+button {
+    color: #fff;
+    text-align: center;
+}
 button {
     padding: 10px 20px;
     background-color: var(--light-border);
     margin-top: 5px;
-   /* Secondary Color */
     border: 2px solid transparent;
-    text-align: center;
-   /* Transparent border to maintain button size on hover */
-    color: #fff;
     cursor: pointer;
     transition: background-color 0.3s, border-color 0.3s;
     font-size: 16px;
     border-radius: 5px;
-   /* Rounded corners for a modern look */
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-   /* Subtle shadow for depth */
-    outline: none;
-   /* Removes the default browser outline */
+    outline: 0;
 }
-/* Dark Mode Toggle */
 .dark-toggle {
     cursor: pointer;
     padding: 8px 12px;
-    background-color: inherit;
     border: 1px solid #e0e0e0;
     transition: background-color 0.3s;
     border-radius: 5px;
-   /* Consistent with other button styles */
     margin-left: 10px;
-   /* For spacing from other header elements */
 }
-.dark-toggle:hover {
-    background-color: #555555;
+.custom-slider,
+.section {
+    border: 1px solid var(--dark-border);
 }
-
 #currentEpochTime {
     text-align: right;
     position: absolute;
     top: 50px;
     right: 10px;
-    z-index: 9999;   
+    z-index: 9999;
 }
-
 #toggleThemeButton {
     display: block;
     margin-left: auto;
     margin-right: 20px;
     margin-bottom: 10px;
 }
-
-/* Section styles */
 .section {
     flex: 1 1 calc(33% - 40px);
     min-width: calc(33% - 40px);
     padding: 20px;
-    border: 1px solid var(--dark-border);
     margin: 20px 2px;
-    background-color: inherit;
-    text-align: center;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-   /* Consistent shadow for depth */
     border-radius: 5px;
-   /* Consistent rounding */
+    box-sizing: border-box;
 }
-/* Responsive Design */
 @media screen and (max-width: 1200px) {
     .section {
         flex: 1 1 calc(50% - 40px);
         min-width: calc(50% - 40px);
-   }
+    }
 }
 @media screen and (max-width: 768px) {
     .section {
         flex: 1 1 100%;
         min-width: 100%;
         box-sizing: border-box;
-   }
-}
-
-/* ... existing CSS ... */
-
-/* Responsive Design for small screens */
-@media screen and (max-width: 768px) {
-    /* Adjust header size and margin */
-    h1 {
-        font-size: 50px !important; 
-        margin: 20px 5px 10px 5px !important; /* This centers vertically if needed */
-        text-align: center;
-        margin-left: 50px;
-        
     }
-    
-    
+    h1 {
+        font-size: 50px !important;
+        margin: 20px 5px 10px !important;
+        text-align: center;
+    }
     #epochAndToggleWrapper {
         display: flex;
         justify-content: center;
         align-items: center;
     }
-
     #currentEpochTime {
-        order: 2; /* make the epoch time appear second */
-        margin-left: 50px; /* Adjust this as needed */
+        order: 2;
+        margin-left: 50px;
         text-align: left;
         position: relative;
         top: 0;
@@ -189,78 +160,60 @@ button {
         left: unset;
         transform: unset;
     }
-
     .custom-toggle-switch {
-        order: 1; /* make the toggle switch appear first */
+        order: 1;
         position: relative !important;
         top: 0 !important;
         left: 10px;
     }
-    .container{
-        padding-top: 0px !important;
+    .container {
+        padding-top: 0 !important;
     }
 }
-
 @media screen and (max-width: 480px) {
-    /* Adjustments for even smaller screens like older smartphones */
     h1 {
-        font-size: 40px !important; /* Reduced size for tiny screens */
+        font-size: 40px !important;
     }
     #currentEpochTime {
-        margin-left: 20px; /* Adjust this as needed */
+        margin-left: 20px;
     }
 }
-
 @media screen and (max-width: 400px) {
-    /* Adjustments for even smaller screens like older smartphones */
     h1 {
-        font-size: 28px !important; /* Reduced size for tiny screens */
+        font-size: 28px !important;
     }
 }
-
-/* Input and select styles */
-input[type="number"], input[type="date"], select {
+.form-element,
+input[type="date"],
+input[type="number"],
+select {
     padding: 10px 15px;
     width: 200px;
-   /* Fixed width for all inputs, selects, and buttons */
-    margin-right: 10px;
     margin: 3px;
-    border: 1px solid #e0e0e0;
     background-color: inherit;
     color: inherit;
-    border-radius: 5px;
-   /* Rounded corners */
     font-size: 16px;
-   /* Font size consistency */
-    outline: none;
-   /* Removes the default browser outline */
+    outline: 0;
 }
-
+input[type="date"],
+input[type="number"],
+select {
+    border: 1px solid #e0e0e0;
+    border-radius: 5px;
+}
 .form-element {
-    padding: 10px 15px;
-    width: 200px;
-    margin: 3px;
     border: 1px solid #e0e0e0;
-    background-color: inherit;
-    color: inherit;
     border-radius: 5px;
-    font-size: 16px;
     box-sizing: border-box;
-    outline: none;
 }
-
-
-.section select[id^="monthDropdown"],
 .section select[id^="dayDropdown"],
-.section select[id^="yearDropdown"],
 .section select[id^="hourDropdown"],
 .section select[id^="minuteDropdown"],
-.section select[id^="secondDropdown"] {
+.section select[id^="monthDropdown"],
+.section select[id^="secondDropdown"],
+.section select[id^="yearDropdown"] {
     width: 85px;
 }
-
-
-/* Tooltip styles */
 .tooltip {
     position: relative;
     display: inline-block;
@@ -268,9 +221,6 @@ input[type="number"], input[type="date"], select {
 }
 .tooltip .tooltiptext {
     visibility: hidden;
-    background-color: #555;
-    color: #fff;
-    text-align: center;
     border-radius: 6px;
     padding: 5px;
     position: absolute;
@@ -285,15 +235,12 @@ input[type="number"], input[type="date"], select {
     visibility: visible;
     opacity: 1;
 }
-
-/* Slider */
 .custom-toggle-switch {
     position: absolute;
     top: 10px;
     right: 10px;
     width: 60px;
 }
-
 .custom-slider {
     position: absolute;
     top: 0;
@@ -303,31 +250,126 @@ input[type="number"], input[type="date"], select {
     width: 100%;
     height: 30px;
     background-color: var(--light-border);
-    border: 1px solid var(--dark-border);
     border-radius: 15px;
     transition: 0.4s;
 }
-
 #custom-toggle-input:checked + .custom-slider {
     background-color: var(--dark-bg);
     border: 1px solid var(--dark-border);
 }
-
 .custom-slider::before {
     content: "";
     position: absolute;
     top: 2px;
-    left: 15px;  /* Positioned more towards the middle */
-    width: 26px; 
-    height: 26px; 
+    left: 15px;
+    width: 26px;
+    height: 26px;
     border-radius: 50%;
-    background-color: var(--light-circle); 
-    box-shadow: -12px 0 0 0 var(--dark-border);  /* Adjusted shadow to slice off a small portion */
+    background-color: var(--light-circle);
+    box-shadow: -12px 0 0 0 var(--dark-border);
     transition: 0.4s;
 }
-
 #custom-toggle-input:checked + .custom-slider::before {
-    left: 32px; 
-    box-shadow: none; 
+    left: 32px;
+    box-shadow: none;
     background-color: var(--dark-circle);
+}
+.section-content {
+    padding: 20px;
+    margin: 20px 0;
+    border-radius: 8px;
+    transition: background-color 0.3s;
+}
+body.dark-mode .section-content:nth-child(odd),
+body.light-mode .section-content:nth-child(2n) {
+    background-color: rgba(128, 0, 0, 0.1);
+}
+body.dark-mode .section-content:nth-child(2n),
+body.light-mode .section-content:nth-child(odd) {
+    background-color: rgba(255, 215, 0, 0.1);
+}
+.section-content h2 {
+    border-bottom: 2px solid var(--dark-border);
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+}
+.section-content dl,
+.section-content ul {
+    padding-left: 20px;
+}
+footer {
+    width: 100%;
+    text-align: center;
+}
+.section-content .centered-faqs dl {
+    max-width: 800px; /* You can adjust this to fit your design */
+    margin: 0 auto; /* This will center the container */
+    text-align: center; /* This will center-align the text */
+}
+
+.section-content .centered-faqs dt,
+.section-content .centered-faqs dd {
+    display: inline-block;
+    width: 100%;
+}
+dd {
+    display: block;
+    margin-inline-start: 0px;
+}
+
+.section-content dt {
+    font-weight: 700;
+    margin-top: 10px;
+}
+@media screen and (max-width: 768px) {
+    .section-content {
+        margin: 10px 5px;
+        padding: 15px;
+    }
+    .section-content h2 {
+        font-size: 1.4rem;
+    }
+}
+
+.info-section {
+    flex: 1 1 100%;
+    width: 100%;
+    padding: 20px;
+    margin: 10px 0;
+    border-radius: 5px;
+    text-align: center;
+    box-sizing: border-box;
+    border: 1px solid var(--dark-border);
+}
+
+
+@media screen and (max-width: 768px) {
+    .info-section {
+        padding: 15px;
+        margin: 10px 5px;
+    }
+}
+
+footer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    padding: 10px;
+    text-align: center;
+    box-sizing: border-box;
+}
+
+.footerClass {
+    width: 100%;
+    max-width: 1148px; /* keeping it consistent with container */
+    margin: 0 auto;
+    padding: 10px 15px;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+ul {
+    text-align: center;
+    list-style-position: inside;
 }
