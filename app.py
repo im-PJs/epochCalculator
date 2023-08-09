@@ -52,7 +52,7 @@ def process_calendar_date_to_epoch(date_input):
     return epoch_time
 
 @app.route('/robots.txt', methods=['GET'])
-def sitemap():
+def robots():
     return app.send_static_file('robots.txt')
 
 @app.route('/sitemap.xml', methods=['GET'])
