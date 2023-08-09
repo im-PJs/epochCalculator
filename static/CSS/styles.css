@@ -195,10 +195,17 @@ button {
 @media screen and (max-width: 480px) {
     /* Adjustments for even smaller screens like older smartphones */
     h1 {
-        font-size: 18px; /* Reduced size for tiny screens */
+        font-size: 40px !important; /* Reduced size for tiny screens */
     }
     #currentEpochTime {
         margin-left: 20px; /* Adjust this as needed */
+    }
+}
+
+@media screen and (max-width: 400px) {
+    /* Adjustments for even smaller screens like older smartphones */
+    h1 {
+        font-size: 28px !important; /* Reduced size for tiny screens */
     }
 }
 
