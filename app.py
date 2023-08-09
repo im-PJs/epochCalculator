@@ -51,6 +51,10 @@ def process_calendar_date_to_epoch(date_input):
     epoch_time = int(date_time.timestamp())
     return epoch_time
 
+@app.route('/robots.txt', methods=['GET'])
+def sitemap():
+    return app.send_static_file('robots.txt')
+
 @app.route('/sitemap.xml', methods=['GET'])
 def sitemap():
     return app.send_static_file('sitemap.xml')
