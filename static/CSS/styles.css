@@ -1,4 +1,13 @@
 /* General styles */
+:root {
+    --light-bg: #FFFFFF;
+    --dark-bg: #333333;
+    --light-border: #800000;
+    --dark-border: #FFD700;
+    --light-circle: #800000;
+    --dark-circle: #FFD700;
+}
+
 body {
     font-family: 'Montserrat', sans-serif;
    /* Body Text */
@@ -11,38 +20,38 @@ body {
 }
 /* Light Mode */
 body.light-mode {
-    background-color: #f4f4f4;
+    background-color: var(--light-bg);
    /* Primary Color */
-    color: #333333;
+    color: var(--dark-bg);
 }
 body.light-mode button:hover {
-    background-color: #FFD700;
+    background-color: var(--dark-border);
    /* Tertiary color on button hover for light mode */
-    border-color: #FFD700;
+    border-color: var(--dark-border);
 }
 /* Dark Mode */
 body.dark-mode {
-    background-color: #333333;
+    background-color: var(--dark-bg);
    /* Primary Color */
-    color: #FFD700;
+    color: var(--dark-border);
 }
 body.dark-mode input[type="number"], body.dark-mode input[type="date"], body.dark-mode select {
     background-color: #444444;
-    color: #f4f4f4;
+    color: var(--light-bg);
     border: 1px solid #555555;
 }
 body.dark-mode select option {
     background-color: #444444;
-    color: #f4f4f4;
+    color: var(--light-bg);
 }
 body.dark-mode select option:checked, body.dark-mode select option:hover {
     background-color: #555555;
-    color: #f4f4f4;
+    color: var(--light-bg);
 }
 body.dark-mode button:hover {
-    background-color: #FFD700;
+    background-color: var(--dark-border);
    /* Tertiary Color for dark mode */
-    border-color: #FFD700;
+    border-color: var(--dark-border);
 }
 /* Container */
 .container {
@@ -59,7 +68,7 @@ h1 {
     margin-bottom: 10px;
 }
 h2 {
-    color: #FFD700;
+    color: var(--dark-border);
 }
 h1, h2 {
     font-family: 'Merriweather', serif;
@@ -73,7 +82,7 @@ h1, h2 {
 /* Button styles */
 button {
     padding: 10px 20px;
-    background-color: #800000;
+    background-color: var(--light-border);
     margin-top: 5px;
    /* Secondary Color */
     border: 2px solid transparent;
@@ -126,7 +135,7 @@ button {
     flex: 1 1 calc(33% - 40px);
     min-width: calc(33% - 40px);
     padding: 20px;
-    border: 1px solid #FFD700;
+    border: 1px solid var(--dark-border);
     margin: 20px 2px;
     background-color: inherit;
     text-align: center;
@@ -278,15 +287,6 @@ input[type="number"], input[type="date"], select {
 }
 
 /* Slider */
-:root {
-    --light-bg: #FFFFFF;
-    --dark-bg: #333333;
-    --light-border: #800000;
-    --dark-border: #FFD700;
-    --light-circle: #800000;
-    --dark-circle: #FFD700;
-}
-
 .custom-toggle-switch {
     position: absolute;
     top: 10px;

@@ -5,7 +5,10 @@
     <title>Epoch Calculator - Unix Calculator</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='CSS/styles.css') }}">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="description" content="Epoch Calculator offers Unix calculations, conversions between calendar dates and epoch time, and more. Try our tools today!">
+    <meta name="robots" content="index, follow">
+    <meta charset="UTF-8">
 </head>
 
 <body class="dark-mode">
@@ -114,7 +117,7 @@
         </div>
     </div>
 
-    <script src="{{ url_for('static', filename='JS/TimeDateFunctions.js') }}"></script>
+    <script defer src="{{ url_for('static', filename='JS/TimeDateFunctions.js') }}"></script>
     <script src="{{ url_for('static', filename='JS/UIInteractions.js') }}"></script>
     <script src="{{ url_for('static', filename='JS/CalculationsEvents.js') }}"></script>
 </body>
