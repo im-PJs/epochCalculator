@@ -1,7 +1,4 @@
 /* General styles */
-*, *:before, *:after {
-    box-sizing: border-box;
-}
 body {
     font-family: 'Montserrat', sans-serif;
    /* Body Text */
@@ -149,6 +146,7 @@ button {
     .section {
         flex: 1 1 100%;
         min-width: 100%;
+        box-sizing: border-box;
    }
 }
 
