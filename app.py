@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request, jsonify
 from datetime import datetime, timedelta
 
-app = Flask(__name__)
+app = Flask(__name__, static_url_path='', static_folder='static')
 
 def process_date_to_epoch(date_time):
     epoch_time = int(date_time.timestamp())
@@ -50,6 +50,14 @@ def process_calendar_date_to_epoch(date_input):
     date_time = datetime(year, month, day)
     epoch_time = int(date_time.timestamp())
     return epoch_time
+
+@app.route('/robots.txt', methods=['GET'])
+def robots():
+    return app.send_static_file('robots.txt')
+
+@app.route('/sitemap.xml', methods=['GET'])
+def sitemap():
+    return app.send_static_file('sitemap.xml')
 
 @app.route('/convert-date-to-epoch', methods=['POST'])
 def convert_date_to_epoch():
