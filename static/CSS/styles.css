@@ -24,7 +24,7 @@ body.light-mode button:hover {
 body.dark-mode {
     background-color: #333333;
    /* Primary Color */
-    color: #f4f4f4;
+    color: #FFD700;
 }
 body.dark-mode input[type="number"], body.dark-mode input[type="date"], body.dark-mode select {
     background-color: #444444;
@@ -49,15 +49,23 @@ body.dark-mode button:hover {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
-    max-width: 960px;
+    max-width: 1148px;
     margin: 0 auto;
     padding: 20px;
+    position: relative;
 }
 /* Headers */
+h1 {
+    margin-bottom: 10px;
+}
+h2 {
+    color: #b3a125;
+}
 h1, h2 {
     font-family: 'Merriweather', serif;
    /* Headers */
     color: inherit;
+    text-align: center;
     margin: 10px 0;
     font-weight: 600;
    /* Bolder headers */
@@ -66,8 +74,10 @@ h1, h2 {
 button {
     padding: 10px 20px;
     background-color: #800000;
+    margin-top: 5px;
    /* Secondary Color */
     border: 2px solid transparent;
+    text-align: center;
    /* Transparent border to maintain button size on hover */
     color: #fff;
     cursor: pointer;
@@ -95,14 +105,31 @@ button {
 .dark-toggle:hover {
     background-color: #555555;
 }
+
+#currentEpochTime {
+    text-align: right;
+    position: absolute;
+    top: 50px;
+    right: 10px;
+    z-index: 9999;   
+}
+
+#toggleThemeButton {
+    display: block;
+    margin-left: auto;
+    margin-right: 20px;
+    margin-bottom: 10px;
+}
+
 /* Section styles */
 .section {
     flex: 1 1 calc(33% - 40px);
     min-width: calc(33% - 40px);
     padding: 20px;
-    border: 1px solid #e0e0e0;
-    margin: 20px 0;
+    border: 1px solid #b3a125;
+    margin: 20px 2px;
     background-color: inherit;
+    text-align: center;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
    /* Consistent shadow for depth */
     border-radius: 5px;
@@ -121,12 +148,62 @@ button {
         min-width: 100%;
    }
 }
+
+/* ... existing CSS ... */
+
+/* Responsive Design for small screens */
+@media screen and (max-width: 768px) {
+    /* Adjust header size and margin */
+    h1 {
+        font-size: 30px; 
+        margin: 20px 0; /* This centers vertically if needed */
+        text-align: center;
+        margin-left: 50px;
+    }
+    
+    
+    #epochAndToggleWrapper {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    #currentEpochTime {
+        order: 2; /* make the epoch time appear second */
+        margin-left: 50px; /* Adjust this as needed */
+        text-align: left;
+        position: relative;
+        top: 0;
+        right: unset;
+        left: unset;
+        transform: unset;
+    }
+
+    .custom-toggle-switch {
+        order: 1; /* make the toggle switch appear first */
+        position: relative !important;
+        top: 0 !important;
+        left: 10px;
+    }
+    .container{
+        padding-top: 0px !important;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    /* Adjustments for even smaller screens like older smartphones */
+    h1 {
+        font-size: 18px; /* Reduced size for tiny screens */
+    }
+}
+
 /* Input and select styles */
 input[type="number"], input[type="date"], select {
     padding: 10px 15px;
     width: 200px;
    /* Fixed width for all inputs, selects, and buttons */
     margin-right: 10px;
+    margin: 3px;
     border: 1px solid #e0e0e0;
     background-color: inherit;
     color: inherit;
@@ -137,6 +214,31 @@ input[type="number"], input[type="date"], select {
     outline: none;
    /* Removes the default browser outline */
 }
+
+.form-element {
+    padding: 10px 15px;
+    width: 200px;
+    margin: 3px;
+    border: 1px solid #e0e0e0;
+    background-color: inherit;
+    color: inherit;
+    border-radius: 5px;
+    font-size: 16px;
+    box-sizing: border-box;
+    outline: none;
+}
+
+
+.section select[id^="monthDropdown"],
+.section select[id^="dayDropdown"],
+.section select[id^="yearDropdown"],
+.section select[id^="hourDropdown"],
+.section select[id^="minuteDropdown"],
+.section select[id^="secondDropdown"] {
+    width: 85px;
+}
+
+
 /* Tooltip styles */
 .tooltip {
     position: relative;
@@ -161,4 +263,59 @@ input[type="number"], input[type="date"], select {
 .tooltip:hover .tooltiptext {
     visibility: visible;
     opacity: 1;
+}
+
+/* Slider */
+:root {
+    --light-bg: #FFFFFF;
+    --dark-bg: #333333;
+    --light-border: #800000;
+    --dark-border: #FFD700;
+    --light-circle: #800000;
+    --dark-circle: #FFD700;
+}
+
+.custom-toggle-switch {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 60px;
+}
+
+.custom-slider {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    height: 30px;
+    background-color: var(--light-border);
+    border: 1px solid var(--dark-border);
+    border-radius: 15px;
+    transition: 0.4s;
+}
+
+#custom-toggle-input:checked + .custom-slider {
+    background-color: var(--dark-bg);
+    border: 1px solid var(--dark-border);
+}
+
+.custom-slider::before {
+    content: "";
+    position: absolute;
+    top: 2px;
+    left: 15px;  /* Positioned more towards the middle */
+    width: 26px; 
+    height: 26px; 
+    border-radius: 50%;
+    background-color: var(--light-circle); 
+    box-shadow: -12px 0 0 0 var(--dark-border);  /* Adjusted shadow to slice off a small portion */
+    transition: 0.4s;
+}
+
+#custom-toggle-input:checked + .custom-slider::before {
+    left: 32px; 
+    box-shadow: none; 
+    background-color: var(--dark-circle);
 }
