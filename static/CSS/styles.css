@@ -217,6 +217,10 @@ body.light-mode select {
     background-color: inherit; /* or specify the light mode color */
     color: inherit; /* or specify the light mode color */
 }
+body.light-mode select {
+    color: var(--dark-bg);
+}
+
 
 body.dark-mode .form-element,
 body.dark-mode input[type=date],
